@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Glow Clinic — Aesthetic &amp; Skin Care</title>
+  <meta name="description" content="คลินิกความงามและดูแลผิวชั้นนำที่มุ่งมั่นเสริมสร้างความงามตามธรรมชาติ ด้วยความแม่นยำ วิทยาศาสตร์ และการดูแลเฉพาะบุคคล">
+  <title>Glow Clinic — ความงามและดูแลผิว</title>
   <script src="https://unpkg.com/lucide@0.460.0"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -27,10 +28,12 @@
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'DM Sans', system-ui, sans-serif;
+      font-family: 'Noto Sans Thai', 'Sukhumvit Set', 'DM Sans', system-ui, sans-serif;
       background: var(--bg);
       color: var(--text);
       overflow-x: hidden;
+      word-break: break-word;
+      overflow-wrap: break-word;
     }
 
     /* ── NAV ── */
@@ -97,6 +100,27 @@
       padding: 4px;
     }
 
+    /* ── LANG SWITCHER ── */
+    .lang-switcher {
+      background: none;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      padding: 7px 12px;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: var(--text-lt);
+      font-family: 'DM Sans', sans-serif;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: border-color .2s, color .2s;
+      white-space: nowrap;
+    }
+
+    .lang-switcher:hover { border-color: var(--text-mid); color: var(--text-mid); }
+    .ls-sep { color: var(--border); font-weight: 300; }
+    .ls-active { color: var(--text) !important; font-weight: 600; }
+
     /* mobile nav drawer */
     .mobile-nav {
       display: none;
@@ -122,7 +146,17 @@
       border-bottom: 1px solid var(--border);
     }
 
-    .mobile-nav a:last-child { border-bottom: none; }
+    .mobile-nav a:last-of-type { border-bottom: none; }
+
+    .mobile-lang {
+      margin-top: 8px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .mobile-lang .lang-switcher {
+      padding: 10px 14px;
+    }
 
     /* ── HERO ── */
     .hero {
@@ -838,7 +872,7 @@
       padding: 13px 15px;
       font-size: 14px;
       font-weight: 300;
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Noto Sans Thai', 'DM Sans', sans-serif;
       outline: none;
       transition: border-color .2s;
       resize: none;
@@ -863,7 +897,7 @@
       letter-spacing: 0.09em;
       text-transform: uppercase;
       cursor: pointer;
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Noto Sans Thai', 'DM Sans', sans-serif;
       font-weight: 400;
       transition: background .25s;
       margin-top: 6px;
@@ -1018,11 +1052,18 @@
   <nav>
     <a href="#" class="logo">Glow <span>Clinic</span></a>
     <ul class="nav-links">
-      <li><a href="#services">Services</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#process">Our Process</a></li>
-      <li><a href="#reviews">Reviews</a></li>
-      <li><a href="#booking" class="nav-book">Book Consultation</a></li>
+      <li><a href="#services" data-lang-th="บริการ" data-lang-en="Services">บริการ</a></li>
+      <li><a href="#about" data-lang-th="เกี่ยวกับเรา" data-lang-en="About">เกี่ยวกับเรา</a></li>
+      <li><a href="#process" data-lang-th="ขั้นตอนการรักษา" data-lang-en="Our Process">ขั้นตอนการรักษา</a></li>
+      <li><a href="#reviews" data-lang-th="รีวิว" data-lang-en="Reviews">รีวิว</a></li>
+      <li><a href="#booking" class="nav-book" data-lang-th="นัดปรึกษา" data-lang-en="Book Consultation">นัดปรึกษา</a></li>
+      <li>
+        <button class="lang-switcher" aria-label="เปลี่ยนภาษา / Switch language">
+          <span class="ls-th ls-active">TH</span>
+          <span class="ls-sep">|</span>
+          <span class="ls-en">EN</span>
+        </button>
+      </li>
     </ul>
     <button class="nav-toggle" aria-label="Toggle menu" onclick="document.querySelector('.mobile-nav').classList.toggle('open')">
       <i data-lucide="menu"></i>
@@ -1030,45 +1071,56 @@
   </nav>
 
   <nav class="mobile-nav">
-    <a href="#services" onclick="this.parentNode.classList.remove('open')">Services</a>
-    <a href="#about" onclick="this.parentNode.classList.remove('open')">About</a>
-    <a href="#process" onclick="this.parentNode.classList.remove('open')">Our Process</a>
-    <a href="#reviews" onclick="this.parentNode.classList.remove('open')">Reviews</a>
-    <a href="#booking" onclick="this.parentNode.classList.remove('open')">Book Consultation</a>
+    <a href="#services" data-lang-th="บริการ" data-lang-en="Services" onclick="this.parentNode.classList.remove('open')">บริการ</a>
+    <a href="#about" data-lang-th="เกี่ยวกับเรา" data-lang-en="About" onclick="this.parentNode.classList.remove('open')">เกี่ยวกับเรา</a>
+    <a href="#process" data-lang-th="ขั้นตอนการรักษา" data-lang-en="Our Process" onclick="this.parentNode.classList.remove('open')">ขั้นตอนการรักษา</a>
+    <a href="#reviews" data-lang-th="รีวิว" data-lang-en="Reviews" onclick="this.parentNode.classList.remove('open')">รีวิว</a>
+    <a href="#booking" data-lang-th="นัดปรึกษา" data-lang-en="Book Consultation" onclick="this.parentNode.classList.remove('open')">นัดปรึกษา</a>
+    <div class="mobile-lang">
+      <button class="lang-switcher" aria-label="เปลี่ยนภาษา / Switch language">
+        <span class="ls-th ls-active">TH</span>
+        <span class="ls-sep">|</span>
+        <span class="ls-en">EN</span>
+      </button>
+    </div>
   </nav>
 
   <!-- HERO -->
   <section class="hero">
     <div class="hero-left">
-      <div class="eyebrow">Premium Aesthetic Clinic</div>
-      <h1 class="hero-heading">
-        Reveal Your<br><em>Natural</em><br>Radiance
+      <div class="eyebrow" data-lang-th="คลินิกความงามระดับพรีเมียม" data-lang-en="Premium Aesthetic Clinic">คลินิกความงามระดับพรีเมียม</div>
+      <h1 class="hero-heading" data-i18n="html"
+          data-lang-th="เผยรัศมี&lt;br&gt;&lt;em&gt;ความงาม&lt;/em&gt;&lt;br&gt;ตามธรรมชาติ"
+          data-lang-en="Reveal Your&lt;br&gt;&lt;em&gt;Natural&lt;/em&gt;&lt;br&gt;Radiance">
+        เผยรัศมี<br><em>ความงาม</em><br>ตามธรรมชาติ
       </h1>
-      <p class="hero-sub">
-        Advanced skin treatments and aesthetic procedures designed to enhance your natural beauty — delivered with precision, care, and clinical expertise.
+      <p class="hero-sub"
+         data-lang-th="การรักษาผิวและหัตถการความงามขั้นสูง ที่ออกแบบมาเพื่อเสริมสร้างความงามตามธรรมชาติของคุณ — ด้วยความแม่นยำ ความใส่ใจ และความเชี่ยวชาญทางคลินิก"
+         data-lang-en="Advanced skin treatments and aesthetic procedures designed to enhance your natural beauty — delivered with precision, care, and clinical expertise.">
+        การรักษาผิวและหัตถการความงามขั้นสูง ที่ออกแบบมาเพื่อเสริมสร้างความงามตามธรรมชาติของคุณ — ด้วยความแม่นยำ ความใส่ใจ และความเชี่ยวชาญทางคลินิก
       </p>
       <div class="hero-actions">
         <a href="#booking" class="btn-dark">
-          Book a Consultation
+          <span data-lang-th="นัดปรึกษาแพทย์" data-lang-en="Book a Consultation">นัดปรึกษาแพทย์</span>
           <i data-lucide="arrow-right"></i>
         </a>
         <a href="#services" class="btn-ghost">
-          Explore Services
+          <span data-lang-th="ดูบริการทั้งหมด" data-lang-en="Explore Services">ดูบริการทั้งหมด</span>
           <i data-lucide="chevron-down"></i>
         </a>
       </div>
       <div class="hero-stats">
         <div class="hero-stat">
           <strong>12<sup style="font-size:18px;vertical-align:super">+</sup></strong>
-          <span>Years of Experience</span>
+          <span data-lang-th="ปีแห่งประสบการณ์" data-lang-en="Years of Experience">ปีแห่งประสบการณ์</span>
         </div>
         <div class="hero-stat">
           <strong>4,800</strong>
-          <span>Treatments Performed</span>
+          <span data-lang-th="การรักษาที่ให้บริการ" data-lang-en="Treatments Performed">การรักษาที่ให้บริการ</span>
         </div>
         <div class="hero-stat">
           <strong>98%</strong>
-          <span>Client Satisfaction</span>
+          <span data-lang-th="ความพึงพอใจของลูกค้า" data-lang-en="Client Satisfaction">ความพึงพอใจของลูกค้า</span>
         </div>
       </div>
     </div>
@@ -1078,8 +1130,9 @@
         alt="Woman with radiant, healthy skin"
       >
       <div class="hero-pullout">
-        <p>"The results exceeded everything I hoped for — completely natural-looking."</p>
-        <cite>— Sarah M., Verified Client</cite>
+        <p data-lang-th="&quot;ผลลัพธ์เกินความคาดหมายทุกอย่าง — ดูธรรมชาติมากจริงๆ&quot;"
+           data-lang-en="&quot;The results exceeded everything I hoped for — completely natural-looking.&quot;">"ผลลัพธ์เกินความคาดหมายทุกอย่าง — ดูธรรมชาติมากจริงๆ"</p>
+        <cite data-lang-th="— Sarah M., ลูกค้าที่ได้รับการยืนยัน" data-lang-en="— Sarah M., Verified Client">— Sarah M., ลูกค้าที่ได้รับการยืนยัน</cite>
       </div>
     </div>
   </section>
@@ -1093,10 +1146,12 @@
   <section class="services" id="services">
     <div class="sec-hdr">
       <div>
-        <div class="sec-label">What We Offer</div>
-        <h2 class="sec-title">Our <em>Signature</em><br>Treatments</h2>
+        <div class="sec-label" data-lang-th="บริการของเรา" data-lang-en="What We Offer">บริการของเรา</div>
+        <h2 class="sec-title" data-i18n="html"
+            data-lang-th="การรักษา&lt;em&gt;ที่เป็นเอกลักษณ์&lt;/em&gt;&lt;br&gt;ของเรา"
+            data-lang-en="Our &lt;em&gt;Signature&lt;/em&gt;&lt;br&gt;Treatments">การรักษา<em>ที่เป็นเอกลักษณ์</em><br>ของเรา</h2>
       </div>
-      <a href="#booking" class="sec-link">View All Services</a>
+      <a href="#booking" class="sec-link" data-lang-th="ดูบริการทั้งหมด" data-lang-en="View All Services">ดูบริการทั้งหมด</a>
     </div>
     <div class="services-grid">
       <div class="svc-card">
@@ -1108,8 +1163,10 @@
         <div class="svc-overlay">
           <div class="svc-icon"><i data-lucide="sparkles"></i></div>
           <div class="svc-num">01</div>
-          <div class="svc-name">Skin Treatments</div>
-          <p class="svc-desc">Chemical peels, microneedling, and advanced hydration therapies for luminous, even-toned skin.</p>
+          <div class="svc-name" data-lang-th="การรักษาผิวพรรณ" data-lang-en="Skin Treatments">การรักษาผิวพรรณ</div>
+          <p class="svc-desc"
+             data-lang-th="เคมีพีล ไมโครนีดลิ่ง และการบำบัดด้วยความชุ่มชื้นขั้นสูง เพื่อผิวที่เปล่งประกายและสม่ำเสมอ"
+             data-lang-en="Chemical peels, microneedling, and advanced hydration therapies for luminous, even-toned skin.">เคมีพีล ไมโครนีดลิ่ง และการบำบัดด้วยความชุ่มชื้นขั้นสูง เพื่อผิวที่เปล่งประกายและสม่ำเสมอ</p>
         </div>
         <div class="svc-arrow"><i data-lucide="arrow-up-right"></i></div>
       </div>
@@ -1122,8 +1179,10 @@
         <div class="svc-overlay">
           <div class="svc-icon"><i data-lucide="zap"></i></div>
           <div class="svc-num">02</div>
-          <div class="svc-name">Laser Procedures</div>
-          <p class="svc-desc">Precision laser resurfacing, pigmentation correction, and permanent hair reduction.</p>
+          <div class="svc-name" data-lang-th="การรักษาด้วยเลเซอร์" data-lang-en="Laser Procedures">การรักษาด้วยเลเซอร์</div>
+          <p class="svc-desc"
+             data-lang-th="เลเซอร์ฟื้นฟูผิวอย่างแม่นยำ แก้ไขปัญหาเม็ดสี และกำจัดขนถาวร"
+             data-lang-en="Precision laser resurfacing, pigmentation correction, and permanent hair reduction.">เลเซอร์ฟื้นฟูผิวอย่างแม่นยำ แก้ไขปัญหาเม็ดสี และกำจัดขนถาวร</p>
         </div>
         <div class="svc-arrow"><i data-lucide="arrow-up-right"></i></div>
       </div>
@@ -1136,8 +1195,10 @@
         <div class="svc-overlay">
           <div class="svc-icon"><i data-lucide="gem"></i></div>
           <div class="svc-num">03</div>
-          <div class="svc-name">Facial Enhancements</div>
-          <p class="svc-desc">Dermal fillers, anti-wrinkle injections, and contouring for refined, balanced features.</p>
+          <div class="svc-name" data-lang-th="การเสริมความงามใบหน้า" data-lang-en="Facial Enhancements">การเสริมความงามใบหน้า</div>
+          <p class="svc-desc"
+             data-lang-th="ฟิลเลอร์ ฉีดลดริ้วรอย และเสริมรูปหน้า เพื่อใบหน้าที่กลมกลืนสวยงาม"
+             data-lang-en="Dermal fillers, anti-wrinkle injections, and contouring for refined, balanced features.">ฟิลเลอร์ ฉีดลดริ้วรอย และเสริมรูปหน้า เพื่อใบหน้าที่กลมกลืนสวยงาม</p>
         </div>
         <div class="svc-arrow"><i data-lucide="arrow-up-right"></i></div>
       </div>
@@ -1154,34 +1215,39 @@
       >
       <div class="about-badge">
         <strong>15<sup style="font-size:20px;vertical-align:super">+</sup></strong>
-        <span>Years of clinical expertise in aesthetic medicine</span>
+        <span data-lang-th="ปีแห่งความเชี่ยวชาญทางคลินิกด้านความงาม" data-lang-en="Years of clinical expertise in aesthetic medicine">ปีแห่งความเชี่ยวชาญทางคลินิกด้านความงาม</span>
       </div>
     </div>
     <div class="about-body">
-      <div class="sec-label">About Glow Clinic</div>
-      <h2 class="sec-title" style="margin-bottom:32px">Where <em>Science</em><br>Meets Artistry</h2>
-      <p>
-        At Glow Clinic, great aesthetic care begins with understanding the individual. <strong>Every treatment is tailored</strong> to your unique anatomy, goals, and lifestyle — not a standardised template.
+      <div class="sec-label" data-lang-th="เกี่ยวกับ Glow Clinic" data-lang-en="About Glow Clinic">เกี่ยวกับ Glow Clinic</div>
+      <h2 class="sec-title" style="margin-bottom:32px" data-i18n="html"
+          data-lang-th="เมื่อ&lt;em&gt;วิทยาศาสตร์&lt;/em&gt;&lt;br&gt;พบกับศิลปะ"
+          data-lang-en="Where &lt;em&gt;Science&lt;/em&gt;&lt;br&gt;Meets Artistry">เมื่อ<em>วิทยาศาสตร์</em><br>พบกับศิลปะ</h2>
+      <p data-i18n="html"
+         data-lang-th="ที่ Glow Clinic การดูแลความงามที่ยอดเยี่ยมเริ่มต้นจากการทำความเข้าใจในตัวบุคคล &lt;strong&gt;การรักษาทุกขั้นตอนออกแบบมาเฉพาะสำหรับคุณ&lt;/strong&gt; โดยคำนึงถึงกายภาพ เป้าหมาย และวิถีชีวิตของคุณ — ไม่ใช่แบบแผนสำเร็จรูป"
+         data-lang-en="At Glow Clinic, great aesthetic care begins with understanding the individual. &lt;strong&gt;Every treatment is tailored&lt;/strong&gt; to your unique anatomy, goals, and lifestyle — not a standardised template.">
+        ที่ Glow Clinic การดูแลความงามที่ยอดเยี่ยมเริ่มต้นจากการทำความเข้าใจในตัวบุคคล <strong>การรักษาทุกขั้นตอนออกแบบมาเฉพาะสำหรับคุณ</strong> โดยคำนึงถึงกายภาพ เป้าหมาย และวิถีชีวิตของคุณ — ไม่ใช่แบบแผนสำเร็จรูป
       </p>
-      <p>
-        Our practitioners combine clinical precision with an artistic eye, ensuring results that are not only effective but beautifully natural. We work exclusively with advanced, evidence-backed technologies.
+      <p data-lang-th="แพทย์ของเราผสมผสานความแม่นยำทางคลินิกกับสายตาด้านศิลปะ เพื่อให้ได้ผลลัพธ์ที่ไม่เพียงแต่มีประสิทธิภาพ แต่ยังดูเป็นธรรมชาติอย่างงดงาม เราใช้เทคโนโลยีขั้นสูงที่ได้รับการสนับสนุนจากหลักฐานทางการแพทย์"
+         data-lang-en="Our practitioners combine clinical precision with an artistic eye, ensuring results that are not only effective but beautifully natural. We work exclusively with advanced, evidence-backed technologies.">
+        แพทย์ของเราผสมผสานความแม่นยำทางคลินิกกับสายตาด้านศิลปะ เพื่อให้ได้ผลลัพธ์ที่ไม่เพียงแต่มีประสิทธิภาพ แต่ยังดูเป็นธรรมชาติอย่างงดงาม เราใช้เทคโนโลยีขั้นสูงที่ได้รับการสนับสนุนจากหลักฐานทางการแพทย์
       </p>
       <div class="credentials">
         <div class="cred">
           <i data-lucide="shield-check"></i>
-          <span>Board-certified aesthetic practitioners</span>
+          <span data-lang-th="แพทย์ความงามที่ได้รับการรับรองจากคณะกรรมการ" data-lang-en="Board-certified aesthetic practitioners">แพทย์ความงามที่ได้รับการรับรองจากคณะกรรมการ</span>
         </div>
         <div class="cred">
           <i data-lucide="award"></i>
-          <span>Internationally accredited clinic</span>
+          <span data-lang-th="คลินิกที่ได้รับการรับรองระดับนานาชาติ" data-lang-en="Internationally accredited clinic">คลินิกที่ได้รับการรับรองระดับนานาชาติ</span>
         </div>
         <div class="cred">
           <i data-lucide="microscope"></i>
-          <span>Medical-grade equipment and protocols</span>
+          <span data-lang-th="อุปกรณ์และมาตรฐานการรักษาระดับทางการแพทย์" data-lang-en="Medical-grade equipment and protocols">อุปกรณ์และมาตรฐานการรักษาระดับทางการแพทย์</span>
         </div>
         <div class="cred">
           <i data-lucide="heart"></i>
-          <span>Personalised care from consultation to recovery</span>
+          <span data-lang-th="การดูแลเฉพาะบุคคลตั้งแต่ปรึกษาจนถึงฟื้นตัว" data-lang-en="Personalised care from consultation to recovery">การดูแลเฉพาะบุคคลตั้งแต่ปรึกษาจนถึงฟื้นตัว</span>
         </div>
       </div>
     </div>
@@ -1191,19 +1257,19 @@
   <div class="stats">
     <div class="stat">
       <div class="stat-n">4,800<sup>+</sup></div>
-      <div class="stat-l">Successful Treatments</div>
+      <div class="stat-l" data-lang-th="การรักษาที่ประสบความสำเร็จ" data-lang-en="Successful Treatments">การรักษาที่ประสบความสำเร็จ</div>
     </div>
     <div class="stat">
       <div class="stat-n">98%</div>
-      <div class="stat-l">Client Satisfaction Rate</div>
+      <div class="stat-l" data-lang-th="อัตราความพึงพอใจของลูกค้า" data-lang-en="Client Satisfaction Rate">อัตราความพึงพอใจของลูกค้า</div>
     </div>
     <div class="stat">
       <div class="stat-n">12</div>
-      <div class="stat-l">Specialist Practitioners</div>
+      <div class="stat-l" data-lang-th="แพทย์ผู้เชี่ยวชาญ" data-lang-en="Specialist Practitioners">แพทย์ผู้เชี่ยวชาญ</div>
     </div>
     <div class="stat">
       <div class="stat-n">15<sup>+</sup></div>
-      <div class="stat-l">Years of Excellence</div>
+      <div class="stat-l" data-lang-th="ปีแห่งความเป็นเลิศ" data-lang-en="Years of Excellence">ปีแห่งความเป็นเลิศ</div>
     </div>
   </div>
 
@@ -1211,34 +1277,40 @@
   <section class="process" id="process">
     <div class="sec-hdr">
       <div>
-        <div class="sec-label">How It Works</div>
-        <h2 class="sec-title">Your Journey<br>to <em>Confidence</em></h2>
+        <div class="sec-label" data-lang-th="วิธีการทำงาน" data-lang-en="How It Works">วิธีการทำงาน</div>
+        <h2 class="sec-title" data-i18n="html"
+            data-lang-th="เส้นทางของคุณ&lt;br&gt;สู่&lt;em&gt;ความมั่นใจ&lt;/em&gt;"
+            data-lang-en="Your Journey&lt;br&gt;to &lt;em&gt;Confidence&lt;/em&gt;">เส้นทางของคุณ<br>สู่<em>ความมั่นใจ</em></h2>
       </div>
     </div>
     <div class="steps">
       <div class="step">
         <div class="step-num">01</div>
         <div class="step-ico"><i data-lucide="message-circle"></i></div>
-        <h3>Consultation</h3>
-        <p>A thorough one-on-one session with your practitioner to understand your goals, assess your skin, and design a fully tailored treatment plan.</p>
+        <h3 data-lang-th="การปรึกษา" data-lang-en="Consultation">การปรึกษา</h3>
+        <p data-lang-th="การพูดคุยแบบตัวต่อตัวกับแพทย์ผู้เชี่ยวชาญ เพื่อทำความเข้าใจเป้าหมาย ประเมินสภาพผิว และออกแบบแผนการรักษาที่เหมาะกับคุณ"
+           data-lang-en="A thorough one-on-one session with your practitioner to understand your goals, assess your skin, and design a fully tailored treatment plan.">การพูดคุยแบบตัวต่อตัวกับแพทย์ผู้เชี่ยวชาญ เพื่อทำความเข้าใจเป้าหมาย ประเมินสภาพผิว และออกแบบแผนการรักษาที่เหมาะกับคุณ</p>
       </div>
       <div class="step">
         <div class="step-num">02</div>
         <div class="step-ico"><i data-lucide="clipboard-list"></i></div>
-        <h3>Treatment Plan</h3>
-        <p>A comprehensive, personalised roadmap — outlining procedures, expected outcomes, and the timeline for your transformation.</p>
+        <h3 data-lang-th="แผนการรักษา" data-lang-en="Treatment Plan">แผนการรักษา</h3>
+        <p data-lang-th="แผนงานครบวงจรเฉพาะบุคคล — ระบุขั้นตอน ผลลัพธ์ที่คาดหวัง และระยะเวลาสำหรับการเปลี่ยนแปลงของคุณ"
+           data-lang-en="A comprehensive, personalised roadmap — outlining procedures, expected outcomes, and the timeline for your transformation.">แผนงานครบวงจรเฉพาะบุคคล — ระบุขั้นตอน ผลลัพธ์ที่คาดหวัง และระยะเวลาสำหรับการเปลี่ยนแปลงของคุณ</p>
       </div>
       <div class="step">
         <div class="step-num">03</div>
         <div class="step-ico"><i data-lucide="activity"></i></div>
-        <h3>Treatment</h3>
-        <p>Precision procedures performed by expert practitioners using the latest clinically proven technologies in our state-of-the-art facility.</p>
+        <h3 data-lang-th="การรักษา" data-lang-en="Treatment">การรักษา</h3>
+        <p data-lang-th="หัตถการที่แม่นยำโดยแพทย์ผู้เชี่ยวชาญ ด้วยเทคโนโลยีที่ได้รับการพิสูจน์ทางคลินิกล่าสุดในสถานที่ทันสมัย"
+           data-lang-en="Precision procedures performed by expert practitioners using the latest clinically proven technologies in our state-of-the-art facility.">หัตถการที่แม่นยำโดยแพทย์ผู้เชี่ยวชาญ ด้วยเทคโนโลยีที่ได้รับการพิสูจน์ทางคลินิกล่าสุดในสถานที่ทันสมัย</p>
       </div>
       <div class="step">
         <div class="step-num">04</div>
         <div class="step-ico"><i data-lucide="refresh-cw"></i></div>
-        <h3>Aftercare</h3>
-        <p>Dedicated post-treatment support, follow-up appointments, and a personalised skincare routine to protect and prolong your results.</p>
+        <h3 data-lang-th="การดูแลหลังการรักษา" data-lang-en="Aftercare">การดูแลหลังการรักษา</h3>
+        <p data-lang-th="การสนับสนุนหลังการรักษา การนัดติดตามผล และแนวทางดูแลผิวเฉพาะบุคคลเพื่อปกป้องและยืดอายุผลลัพธ์ของคุณ"
+           data-lang-en="Dedicated post-treatment support, follow-up appointments, and a personalised skincare routine to protect and prolong your results.">การสนับสนุนหลังการรักษา การนัดติดตามผล และแนวทางดูแลผิวเฉพาะบุคคลเพื่อปกป้องและยืดอายุผลลัพธ์ของคุณ</p>
       </div>
     </div>
   </section>
@@ -1247,8 +1319,10 @@
   <section class="testimonials" id="reviews">
     <div class="sec-hdr">
       <div>
-        <div class="sec-label">Client Stories</div>
-        <h2 class="sec-title">Words from Our<br><em>Clients</em></h2>
+        <div class="sec-label" data-lang-th="เสียงจากลูกค้า" data-lang-en="Client Stories">เสียงจากลูกค้า</div>
+        <h2 class="sec-title" data-i18n="html"
+            data-lang-th="เสียงสะท้อนจาก&lt;br&gt;&lt;em&gt;ลูกค้าของเรา&lt;/em&gt;"
+            data-lang-en="Words from Our&lt;br&gt;&lt;em&gt;Clients&lt;/em&gt;">เสียงสะท้อนจาก<br><em>ลูกค้าของเรา</em></h2>
       </div>
     </div>
     <div class="t-grid">
@@ -1261,8 +1335,10 @@
           <i data-lucide="star"></i>
           <i data-lucide="star"></i>
         </div>
-        <p class="t-quote">
-          I had tried countless skincare products over the years with minimal results. After just three sessions at Glow Clinic, the difference in my skin texture and clarity was remarkable. The team made me feel completely at ease throughout.
+        <p class="t-quote"
+           data-lang-th="ฉันลองใช้ผลิตภัณฑ์บำรุงผิวมาหลายปีโดยได้ผลน้อยมาก หลังจากเข้ารับการรักษาที่ Glow Clinic เพียงสามครั้ง ความแตกต่างของผิวที่เห็นได้ชัดนั้นน่าประทับใจมาก ทีมงานทำให้ฉันรู้สึกผ่อนคลายตลอดเวลา"
+           data-lang-en="I had tried countless skincare products over the years with minimal results. After just three sessions at Glow Clinic, the difference in my skin texture and clarity was remarkable. The team made me feel completely at ease throughout.">
+          ฉันลองใช้ผลิตภัณฑ์บำรุงผิวมาหลายปีโดยได้ผลน้อยมาก หลังจากเข้ารับการรักษาที่ Glow Clinic เพียงสามครั้ง ความแตกต่างของผิวที่เห็นได้ชัดนั้นน่าประทับใจมาก ทีมงานทำให้ฉันรู้สึกผ่อนคลายตลอดเวลา
         </p>
         <div class="t-author">
           <div class="t-avatar">
@@ -1274,7 +1350,7 @@
           </div>
           <div class="t-meta">
             <strong>Emma Thornton</strong>
-            <span>Laser Resurfacing Client</span>
+            <span data-lang-th="ลูกค้าเลเซอร์ฟื้นฟูผิว" data-lang-en="Laser Resurfacing Client">ลูกค้าเลเซอร์ฟื้นฟูผิว</span>
           </div>
         </div>
       </div>
@@ -1287,8 +1363,10 @@
           <i data-lucide="star"></i>
           <i data-lucide="star"></i>
         </div>
-        <p class="t-quote">
-          The consultation process was what won me over — thorough, honest, and never pushy. My practitioner explained every step carefully, and the results have been genuinely life-changing. I finally feel like myself again.
+        <p class="t-quote"
+           data-lang-th="กระบวนการปรึกษาคือสิ่งที่ทำให้ฉันประทับใจ — ครบถ้วน ซื่อสัตย์ และไม่กดดันเลย แพทย์อธิบายทุกขั้นตอนอย่างละเอียด และผลลัพธ์ที่ได้เปลี่ยนชีวิตฉันอย่างแท้จริง ฉันรู้สึกเป็นตัวเองอีกครั้ง"
+           data-lang-en="The consultation process was what won me over — thorough, honest, and never pushy. My practitioner explained every step carefully, and the results have been genuinely life-changing. I finally feel like myself again.">
+          กระบวนการปรึกษาคือสิ่งที่ทำให้ฉันประทับใจ — ครบถ้วน ซื่อสัตย์ และไม่กดดันเลย แพทย์อธิบายทุกขั้นตอนอย่างละเอียด และผลลัพธ์ที่ได้เปลี่ยนชีวิตฉันอย่างแท้จริง ฉันรู้สึกเป็นตัวเองอีกครั้ง
         </p>
         <div class="t-author">
           <div class="t-avatar">
@@ -1300,7 +1378,7 @@
           </div>
           <div class="t-meta">
             <strong>Claire Nakamura</strong>
-            <span>Facial Enhancement Client</span>
+            <span data-lang-th="ลูกค้าเสริมความงามใบหน้า" data-lang-en="Facial Enhancement Client">ลูกค้าเสริมความงามใบหน้า</span>
           </div>
         </div>
       </div>
@@ -1310,10 +1388,14 @@
   <!-- BOOKING -->
   <section class="booking" id="booking">
     <div class="booking-left">
-      <div class="sec-label">Get Started</div>
-      <h2 class="booking-heading">Begin Your<br><em>Skin Journey</em><br>Today</h2>
-      <p class="booking-text">
-        Your first consultation is complimentary. Speak with one of our practitioners and discover what is truly possible for your skin.
+      <div class="sec-label" data-lang-th="เริ่มต้นวันนี้" data-lang-en="Get Started">เริ่มต้นวันนี้</div>
+      <h2 class="booking-heading" data-i18n="html"
+          data-lang-th="เริ่มต้น&lt;br&gt;&lt;em&gt;การดูแลผิว&lt;/em&gt;&lt;br&gt;ของคุณวันนี้"
+          data-lang-en="Begin Your&lt;br&gt;&lt;em&gt;Skin Journey&lt;/em&gt;&lt;br&gt;Today">เริ่มต้น<br><em>การดูแลผิว</em><br>ของคุณวันนี้</h2>
+      <p class="booking-text"
+         data-lang-th="การปรึกษาครั้งแรกของคุณฟรีไม่มีค่าใช้จ่าย พูดคุยกับแพทย์ผู้เชี่ยวชาญของเรา และค้นพบสิ่งที่เป็นไปได้อย่างแท้จริงสำหรับผิวของคุณ"
+         data-lang-en="Your first consultation is complimentary. Speak with one of our practitioners and discover what is truly possible for your skin.">
+        การปรึกษาครั้งแรกของคุณฟรีไม่มีค่าใช้จ่าย พูดคุยกับแพทย์ผู้เชี่ยวชาญของเรา และค้นพบสิ่งที่เป็นไปได้อย่างแท้จริงสำหรับผิวของคุณ
       </p>
       <div class="contact-list">
         <div class="contact-row">
@@ -1330,42 +1412,42 @@
         </div>
         <div class="contact-row">
           <i data-lucide="clock"></i>
-          <span>Mon–Sat: 9:00 am – 7:00 pm</span>
+          <span data-lang-th="จ–ส: 9:00 – 19:00 น." data-lang-en="Mon–Sat: 9:00 am – 7:00 pm">จ–ส: 9:00 – 19:00 น.</span>
         </div>
       </div>
     </div>
     <div class="booking-right">
-      <h3 class="form-heading">Request a Consultation</h3>
+      <h3 class="form-heading" data-lang-th="ขอนัดปรึกษา" data-lang-en="Request a Consultation">ขอนัดปรึกษา</h3>
       <div class="f-row">
         <div class="f-group">
-          <label>First Name</label>
-          <input type="text" placeholder="Emma">
+          <label data-lang-th="ชื่อ" data-lang-en="First Name">ชื่อ</label>
+          <input type="text" placeholder="สมหญิง" data-ph-th="สมหญิง" data-ph-en="Emma">
         </div>
         <div class="f-group">
-          <label>Last Name</label>
-          <input type="text" placeholder="Thornton">
+          <label data-lang-th="นามสกุล" data-lang-en="Last Name">นามสกุล</label>
+          <input type="text" placeholder="รักไทย" data-ph-th="รักไทย" data-ph-en="Thornton">
         </div>
       </div>
       <div class="f-group">
-        <label>Email Address</label>
-        <input type="email" placeholder="emma@example.com">
+        <label data-lang-th="อีเมล" data-lang-en="Email Address">อีเมล</label>
+        <input type="email" placeholder="example@email.com" data-ph-th="example@email.com" data-ph-en="emma@example.com">
       </div>
       <div class="f-group">
-        <label>Treatment of Interest</label>
+        <label data-lang-th="บริการที่สนใจ" data-lang-en="Treatment of Interest">บริการที่สนใจ</label>
         <select>
-          <option value="">Select a treatment...</option>
-          <option>Skin Treatments</option>
-          <option>Laser Procedures</option>
-          <option>Facial Enhancements</option>
-          <option>Not sure yet — need guidance</option>
+          <option value="" data-lang-th="เลือกบริการ..." data-lang-en="Select a treatment...">เลือกบริการ...</option>
+          <option data-lang-th="การรักษาผิวพรรณ" data-lang-en="Skin Treatments">การรักษาผิวพรรณ</option>
+          <option data-lang-th="การรักษาด้วยเลเซอร์" data-lang-en="Laser Procedures">การรักษาด้วยเลเซอร์</option>
+          <option data-lang-th="การเสริมความงามใบหน้า" data-lang-en="Facial Enhancements">การเสริมความงามใบหน้า</option>
+          <option data-lang-th="ยังไม่แน่ใจ — ต้องการคำแนะนำ" data-lang-en="Not sure yet — need guidance">ยังไม่แน่ใจ — ต้องการคำแนะนำ</option>
         </select>
       </div>
       <div class="f-group">
-        <label>Message (optional)</label>
-        <textarea rows="3" placeholder="Tell us a little about your goals..."></textarea>
+        <label data-lang-th="ข้อความ (ไม่บังคับ)" data-lang-en="Message (optional)">ข้อความ (ไม่บังคับ)</label>
+        <textarea rows="3" placeholder="บอกเล่าเป้าหมายของคุณสักเล็กน้อย..." data-ph-th="บอกเล่าเป้าหมายของคุณสักเล็กน้อย..." data-ph-en="Tell us a little about your goals..."></textarea>
       </div>
       <button class="btn-submit" type="button">
-        Request Free Consultation
+        <span data-lang-th="ขอนัดปรึกษาฟรี" data-lang-en="Request Free Consultation">ขอนัดปรึกษาฟรี</span>
         <i data-lucide="arrow-right"></i>
       </button>
     </div>
@@ -1376,7 +1458,8 @@
     <div class="footer-top">
       <div class="footer-brand">
         <a href="#" class="logo">Glow <span>Clinic</span></a>
-        <p>A premier aesthetic and skin care clinic dedicated to enhancing natural beauty through precision, science, and personalised care.</p>
+        <p data-lang-th="คลินิกความงามและดูแลผิวชั้นนำที่มุ่งมั่นเสริมสร้างความงามตามธรรมชาติ ผ่านความแม่นยำ วิทยาศาสตร์ และการดูแลเฉพาะบุคคล"
+           data-lang-en="A premier aesthetic and skin care clinic dedicated to enhancing natural beauty through precision, science, and personalised care.">คลินิกความงามและดูแลผิวชั้นนำที่มุ่งมั่นเสริมสร้างความงามตามธรรมชาติ ผ่านความแม่นยำ วิทยาศาสตร์ และการดูแลเฉพาะบุคคล</p>
         <div class="socials">
           <div class="social"><i data-lucide="instagram"></i></div>
           <div class="social"><i data-lucide="facebook"></i></div>
@@ -1385,42 +1468,42 @@
         </div>
       </div>
       <div class="f-col">
-        <h4>Treatments</h4>
+        <h4 data-lang-th="การรักษา" data-lang-en="Treatments">การรักษา</h4>
         <ul>
-          <li><a href="#">Skin Treatments</a></li>
-          <li><a href="#">Laser Procedures</a></li>
-          <li><a href="#">Facial Enhancements</a></li>
-          <li><a href="#">Body Contouring</a></li>
-          <li><a href="#">Consultation</a></li>
+          <li><a href="#" data-lang-th="การรักษาผิวพรรณ" data-lang-en="Skin Treatments">การรักษาผิวพรรณ</a></li>
+          <li><a href="#" data-lang-th="การรักษาด้วยเลเซอร์" data-lang-en="Laser Procedures">การรักษาด้วยเลเซอร์</a></li>
+          <li><a href="#" data-lang-th="การเสริมความงามใบหน้า" data-lang-en="Facial Enhancements">การเสริมความงามใบหน้า</a></li>
+          <li><a href="#" data-lang-th="กระชับสัดส่วน" data-lang-en="Body Contouring">กระชับสัดส่วน</a></li>
+          <li><a href="#" data-lang-th="ปรึกษาแพทย์" data-lang-en="Consultation">ปรึกษาแพทย์</a></li>
         </ul>
       </div>
       <div class="f-col">
-        <h4>Clinic</h4>
+        <h4 data-lang-th="คลินิก" data-lang-en="Clinic">คลินิก</h4>
         <ul>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Our Team</a></li>
-          <li><a href="#">Accreditations</a></li>
-          <li><a href="#">Client Stories</a></li>
-          <li><a href="#">Journal</a></li>
+          <li><a href="#" data-lang-th="เกี่ยวกับเรา" data-lang-en="About Us">เกี่ยวกับเรา</a></li>
+          <li><a href="#" data-lang-th="ทีมของเรา" data-lang-en="Our Team">ทีมของเรา</a></li>
+          <li><a href="#" data-lang-th="การรับรอง" data-lang-en="Accreditations">การรับรอง</a></li>
+          <li><a href="#" data-lang-th="เสียงจากลูกค้า" data-lang-en="Client Stories">เสียงจากลูกค้า</a></li>
+          <li><a href="#" data-lang-th="บทความ" data-lang-en="Journal">บทความ</a></li>
         </ul>
       </div>
       <div class="f-col">
-        <h4>Support</h4>
+        <h4 data-lang-th="ช่วยเหลือ" data-lang-en="Support">ช่วยเหลือ</h4>
         <ul>
-          <li><a href="#">Book Appointment</a></li>
-          <li><a href="#">Aftercare Advice</a></li>
-          <li><a href="#">FAQs</a></li>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Contact</a></li>
+          <li><a href="#" data-lang-th="จองนัด" data-lang-en="Book Appointment">จองนัด</a></li>
+          <li><a href="#" data-lang-th="คำแนะนำหลังการรักษา" data-lang-en="Aftercare Advice">คำแนะนำหลังการรักษา</a></li>
+          <li><a href="#" data-lang-th="คำถามที่พบบ่อย" data-lang-en="FAQs">คำถามที่พบบ่อย</a></li>
+          <li><a href="#" data-lang-th="นโยบายความเป็นส่วนตัว" data-lang-en="Privacy Policy">นโยบายความเป็นส่วนตัว</a></li>
+          <li><a href="#" data-lang-th="ติดต่อเรา" data-lang-en="Contact">ติดต่อเรา</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2026 Glow Clinic. All rights reserved.</p>
+      <p data-lang-th="© 2026 Glow Clinic. สงวนลิขสิทธิ์ทุกประการ" data-lang-en="© 2026 Glow Clinic. All rights reserved.">© 2026 Glow Clinic. สงวนลิขสิทธิ์ทุกประการ</p>
       <div class="f-legal">
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
-        <a href="#">Cookies</a>
+        <a href="#" data-lang-th="ความเป็นส่วนตัว" data-lang-en="Privacy">ความเป็นส่วนตัว</a>
+        <a href="#" data-lang-th="เงื่อนไข" data-lang-en="Terms">เงื่อนไข</a>
+        <a href="#" data-lang-th="Cookies" data-lang-en="Cookies">Cookies</a>
       </div>
     </div>
   </footer>
@@ -1428,27 +1511,106 @@
   <script>
     lucide.createIcons();
 
-    // Build ticker
-    const TICKER_ITEMS = [
-      { icon: 'sparkles',  text: 'Skin Treatments' },
-      { icon: 'zap',       text: 'Laser Procedures' },
-      { icon: 'gem',       text: 'Facial Enhancements' },
-      { icon: 'droplets',  text: 'Chemical Peels' },
-      { icon: 'sun',       text: 'Pigmentation Correction' },
-      { icon: 'activity',  text: 'Microneedling' },
-      { icon: 'star',      text: 'Dermal Fillers' },
-      { icon: 'award',     text: 'Board-Certified Practitioners' },
-    ];
+    // ── LANGUAGE SWITCHER ──
+    (function () {
+      var TITLES = {
+        th: 'Glow Clinic — ความงามและดูแลผิว',
+        en: 'Glow Clinic — Aesthetic & Skin Care'
+      };
+      var META_DESCS = {
+        th: 'คลินิกความงามและดูแลผิวชั้นนำที่มุ่งมั่นเสริมสร้างความงามตามธรรมชาติ ด้วยความแม่นยำ วิทยาศาสตร์ และการดูแลเฉพาะบุคคล',
+        en: 'A premier aesthetic and skin care clinic dedicated to enhancing natural beauty through precision, science, and personalised care.'
+      };
+      var TICKER_DATA = {
+        th: [
+          { icon: 'sparkles',  text: 'การรักษาผิวพรรณ' },
+          { icon: 'zap',       text: 'เลเซอร์บำบัด' },
+          { icon: 'gem',       text: 'เสริมความงามใบหน้า' },
+          { icon: 'droplets',  text: 'เคมีพีล' },
+          { icon: 'sun',       text: 'ลบจุดด่างดำ' },
+          { icon: 'activity',  text: 'ไมโครนีดลิ่ง' },
+          { icon: 'star',      text: 'ฟิลเลอร์' },
+          { icon: 'award',     text: 'แพทย์ผู้เชี่ยวชาญที่ได้รับการรับรอง' }
+        ],
+        en: [
+          { icon: 'sparkles',  text: 'Skin Treatments' },
+          { icon: 'zap',       text: 'Laser Procedures' },
+          { icon: 'gem',       text: 'Facial Enhancements' },
+          { icon: 'droplets',  text: 'Chemical Peels' },
+          { icon: 'sun',       text: 'Pigmentation Correction' },
+          { icon: 'activity',  text: 'Microneedling' },
+          { icon: 'star',      text: 'Dermal Fillers' },
+          { icon: 'award',     text: 'Board-Certified Practitioners' }
+        ]
+      };
 
-    const track = document.getElementById('tickerTrack');
-    [...TICKER_ITEMS, ...TICKER_ITEMS].forEach(function(item) {
-      var el = document.createElement('div');
-      el.className = 'ticker-item';
-      el.innerHTML = '<i data-lucide="' + item.icon + '"></i><span>' + item.text + '</span>';
-      track.appendChild(el);
-    });
+      function buildTicker(lang) {
+        var items = TICKER_DATA[lang];
+        var track = document.getElementById('tickerTrack');
+        track.innerHTML = '';
+        var doubled = items.concat(items);
+        doubled.forEach(function (item) {
+          var el = document.createElement('div');
+          el.className = 'ticker-item';
+          el.innerHTML = '<i data-lucide="' + item.icon + '"></i><span>' + item.text + '</span>';
+          track.appendChild(el);
+        });
+        lucide.createIcons();
+      }
 
-    lucide.createIcons();
+      function applyLang(lang) {
+        localStorage.setItem('glowLang', lang);
+        document.documentElement.lang = lang;
+        document.title = TITLES[lang];
+
+        var md = document.querySelector('meta[name="description"]');
+        if (md) md.setAttribute('content', META_DESCS[lang]);
+
+        // Update all translatable text elements
+        var els = document.querySelectorAll('[data-lang-th]');
+        for (var i = 0; i < els.length; i++) {
+          var el = els[i];
+          var val = el.getAttribute('data-lang-' + lang);
+          if (val === null) continue;
+          if (el.getAttribute('data-i18n') === 'html') {
+            el.innerHTML = val;
+          } else {
+            el.textContent = val;
+          }
+        }
+
+        // Update input/textarea placeholders
+        var phEls = document.querySelectorAll('[data-ph-th]');
+        for (var j = 0; j < phEls.length; j++) {
+          var ph = phEls[j].getAttribute('data-ph-' + lang);
+          if (ph !== null) phEls[j].placeholder = ph;
+        }
+
+        // Update all lang switcher buttons
+        var thSpans = document.querySelectorAll('.lang-switcher .ls-th');
+        var enSpans = document.querySelectorAll('.lang-switcher .ls-en');
+        for (var k = 0; k < thSpans.length; k++) {
+          thSpans[k].classList.toggle('ls-active', lang === 'th');
+        }
+        for (var m = 0; m < enSpans.length; m++) {
+          enSpans[m].classList.toggle('ls-active', lang === 'en');
+        }
+
+        buildTicker(lang);
+      }
+
+      // Attach click handlers to all lang switcher buttons
+      var switchers = document.querySelectorAll('.lang-switcher');
+      for (var s = 0; s < switchers.length; s++) {
+        switchers[s].addEventListener('click', function () {
+          var current = localStorage.getItem('glowLang') || 'th';
+          applyLang(current === 'th' ? 'en' : 'th');
+        });
+      }
+
+      // Apply saved or default language on load
+      applyLang(localStorage.getItem('glowLang') || 'th');
+    })();
   </script>
 </body>
 </html>
