@@ -109,14 +109,14 @@
     .lang-btn:hover { color: var(--on-dark); }
     .lang-btn.active { color: var(--on-dark); }
     .lang-div {
-      color: var(--bd-dark); font-size: 13px;
+      color: var(--muted-dark); font-size: 13px;
       user-select: none; pointer-events: none;
     }
 
     /* ── MOBILE MENU ─────────────────────────────────── */
     .mob-menu {
       display: none; position: fixed; inset: 0;
-      background: var(--ink-mid); z-index: 99;
+      background: var(--ink-mid); z-index: 101;
       flex-direction: column; align-items: center; justify-content: center; gap: 28px;
     }
     .mob-menu.open { display: flex; }
@@ -182,6 +182,7 @@
       min-height: 100vh;
       display: grid; grid-template-columns: 56% 1fr;
       background: var(--ink);
+      position: relative;
     }
     .hero-body {
       display: flex; flex-direction: column; justify-content: flex-end;
