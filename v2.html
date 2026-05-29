@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Glow Clinic — Aesthetic &amp; Skin Treatments</title>
+  <title>Glow Clinic — การรักษาผิวพรรณและความงาม</title>
+  <meta name="description" content="คลินิกความงามชั้นนำ ให้บริการการรักษาผิวพรรณด้วยวิทยาศาสตร์การแพทย์ที่ทันสมัย ออกแบบเฉพาะสำหรับคุณด้วยความแม่นยำและการดูแลที่ใส่ใจ" />
   <script src="https://unpkg.com/lucide@0.460.0"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -24,8 +25,8 @@
       --accent-lt:  #F0D8CC;
       --bd-dark:    rgba(255,255,255,0.07);
       --bd-light:   #D8D0C4;
-      --serif:      'Cormorant Garamond', Georgia, serif;
-      --sans:       'Inter', system-ui, sans-serif;
+      --serif:      'Cormorant Garamond', 'Noto Serif Thai', Georgia, serif;
+      --sans:       'Inter', 'Noto Sans Thai', 'Sukhumvit Set', system-ui, sans-serif;
       --gutter:     clamp(24px, 5vw, 80px);
       --mw:         1280px;
     }
@@ -37,6 +38,8 @@
       color: var(--on-dark);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      word-break: break-word;
+      overflow-wrap: break-word;
     }
     img { display: block; max-width: 100%; }
     a { color: inherit; text-decoration: none; }
@@ -90,6 +93,24 @@
     .hamburger span {
       display: block; width: 24px; height: 1.5px;
       background: var(--on-dark); transition: all .3s;
+    }
+
+    /* ── LANG SWITCHER ───────────────────────────────── */
+    .lang-sw {
+      display: flex; align-items: center; gap: 2px;
+    }
+    .lang-btn {
+      background: none; border: none; cursor: pointer;
+      color: var(--muted-dark); padding: 5px 7px;
+      font-size: 11px; font-weight: 600; letter-spacing: .1em;
+      text-transform: uppercase; transition: color .2s;
+      font-family: var(--sans); border-radius: 2px;
+    }
+    .lang-btn:hover { color: var(--on-dark); }
+    .lang-btn.active { color: var(--on-dark); }
+    .lang-div {
+      color: var(--bd-dark); font-size: 13px;
+      user-select: none; pointer-events: none;
     }
 
     /* ── MOBILE MENU ─────────────────────────────────── */
@@ -541,12 +562,17 @@
     <span class="logo-sub">Aesthetic Clinic</span>
   </a>
   <ul class="nav-links">
-    <li><a href="#services">Services</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#process">Process</a></li>
-    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#services" data-lang-th="บริการ" data-lang-en="Services">บริการ</a></li>
+    <li><a href="#about" data-lang-th="เกี่ยวกับเรา" data-lang-en="About">เกี่ยวกับเรา</a></li>
+    <li><a href="#process" data-lang-th="ขั้นตอน" data-lang-en="Process">ขั้นตอน</a></li>
+    <li><a href="#faq" data-lang-th="คำถามที่พบบ่อย" data-lang-en="FAQ">คำถามที่พบบ่อย</a></li>
   </ul>
-  <a href="#booking" class="nav-book">Book a Consultation</a>
+  <div class="lang-sw">
+    <button class="lang-btn active" data-lang="th">TH</button>
+    <span class="lang-div">|</span>
+    <button class="lang-btn" data-lang="en">EN</button>
+  </div>
+  <a href="#booking" class="nav-book" data-lang-th="นัดหมายปรึกษา" data-lang-en="Book a Consultation">นัดหมายปรึกษา</a>
   <button class="hamburger" id="hbtn" aria-label="Open menu">
     <span></span><span></span><span></span>
   </button>
@@ -557,35 +583,35 @@
   <button class="mob-close" id="mclose" aria-label="Close menu">
     <i data-lucide="x" style="width:26px;height:26px;"></i>
   </button>
-  <a href="#services" onclick="closeMenu()">Services</a>
-  <a href="#about" onclick="closeMenu()">About</a>
-  <a href="#process" onclick="closeMenu()">Process</a>
-  <a href="#faq" onclick="closeMenu()">FAQ</a>
-  <a href="#booking" class="mob-cta" onclick="closeMenu()">Book Now</a>
+  <a href="#services" onclick="closeMenu()" data-lang-th="บริการ" data-lang-en="Services">บริการ</a>
+  <a href="#about" onclick="closeMenu()" data-lang-th="เกี่ยวกับเรา" data-lang-en="About">เกี่ยวกับเรา</a>
+  <a href="#process" onclick="closeMenu()" data-lang-th="ขั้นตอน" data-lang-en="Process">ขั้นตอน</a>
+  <a href="#faq" onclick="closeMenu()" data-lang-th="คำถามที่พบบ่อย" data-lang-en="FAQ">คำถามที่พบบ่อย</a>
+  <a href="#booking" class="mob-cta" onclick="closeMenu()" data-lang-th="นัดหมายเลย" data-lang-en="Book Now">นัดหมายเลย</a>
 </div>
 
 <!-- HERO -->
 <section class="hero">
   <div class="hero-body">
-    <p class="eyebrow">Advanced Aesthetic Medicine</p>
-    <h1 class="hero-h1">The Art of<br><em>Refined Beauty</em></h1>
-    <p class="hero-sub">Evidence-based skin treatments tailored to your unique needs — delivered with clinical precision and unhurried, genuine care.</p>
+    <p class="eyebrow" data-lang-th="การแพทย์ความงามขั้นสูง" data-lang-en="Advanced Aesthetic Medicine">การแพทย์ความงามขั้นสูง</p>
+    <h1 class="hero-h1" data-lang-th="ศิลปะแห่ง<br><em>ความงามที่ประณีต</em>" data-lang-en="The Art of<br><em>Refined Beauty</em>" data-i18n-html>ศิลปะแห่ง<br><em>ความงามที่ประณีต</em></h1>
+    <p class="hero-sub" data-lang-th="การรักษาผิวพรรณที่มีหลักฐานทางวิทยาศาสตร์รองรับ ออกแบบเฉพาะสำหรับคุณ — ด้วยความแม่นยำทางคลินิกและการดูแลที่ใส่ใจอย่างแท้จริง" data-lang-en="Evidence-based skin treatments tailored to your unique needs — delivered with clinical precision and unhurried, genuine care.">การรักษาผิวพรรณที่มีหลักฐานทางวิทยาศาสตร์รองรับ ออกแบบเฉพาะสำหรับคุณ — ด้วยความแม่นยำทางคลินิกและการดูแลที่ใส่ใจอย่างแท้จริง</p>
     <div class="hero-actions">
-      <a href="#services" class="btn btn-accent">Explore Treatments <i data-lucide="arrow-right"></i></a>
-      <a href="#about" class="btn btn-ghost">Our Philosophy <i data-lucide="arrow-right"></i></a>
+      <a href="#services" class="btn btn-accent"><span data-lang-th="สำรวจการรักษา" data-lang-en="Explore Treatments">สำรวจการรักษา</span> <i data-lucide="arrow-right"></i></a>
+      <a href="#about" class="btn btn-ghost"><span data-lang-th="ปรัชญาของเรา" data-lang-en="Our Philosophy">ปรัชญาของเรา</span> <i data-lucide="arrow-right"></i></a>
     </div>
     <div class="hero-stats">
       <div class="h-stat">
         <div class="n">14+</div>
-        <div class="l">Years of practice</div>
+        <div class="l" data-lang-th="ปีแห่งประสบการณ์" data-lang-en="Years of practice">ปีแห่งประสบการณ์</div>
       </div>
       <div class="h-stat">
         <div class="n">5,200</div>
-        <div class="l">Clients treated</div>
+        <div class="l" data-lang-th="ผู้รับบริการที่ไว้วางใจ" data-lang-en="Clients treated">ผู้รับบริการที่ไว้วางใจ</div>
       </div>
       <div class="h-stat">
         <div class="n">97%</div>
-        <div class="l">Satisfaction rate</div>
+        <div class="l" data-lang-th="ความพึงพอใจ" data-lang-en="Satisfaction rate">ความพึงพอใจ</div>
       </div>
     </div>
   </div>
@@ -612,39 +638,39 @@
 <section class="services" id="services">
   <div class="sec-hd">
     <div>
-      <p class="eyebrow" style="color:var(--accent);">Our Specialties</p>
-      <h2 class="display" style="color:var(--on-light);">Treatments That<br><em>Transform</em></h2>
+      <p class="eyebrow" style="color:var(--accent);" data-lang-th="ความเชี่ยวชาญของเรา" data-lang-en="Our Specialties">ความเชี่ยวชาญของเรา</p>
+      <h2 class="display" style="color:var(--on-light);" data-lang-th="การรักษาที่<br><em>เปลี่ยนแปลงคุณ</em>" data-lang-en="Treatments That<br><em>Transform</em>" data-i18n-html>การรักษาที่<br><em>เปลี่ยนแปลงคุณ</em></h2>
     </div>
-    <p class="sec-hd-note">Every treatment is individually designed, combining clinical science with aesthetic artistry.</p>
+    <p class="sec-hd-note" data-lang-th="การรักษาทุกประเภทได้รับการออกแบบเฉพาะบุคคล ผสานวิทยาศาสตร์การแพทย์กับความประณีตทางศิลปะ" data-lang-en="Every treatment is individually designed, combining clinical science with aesthetic artistry.">การรักษาทุกประเภทได้รับการออกแบบเฉพาะบุคคล ผสานวิทยาศาสตร์การแพทย์กับความประณีตทางศิลปะ</p>
   </div>
   <div class="cards">
     <div class="card">
       <span class="card-no">01</span>
       <div class="card-ico"><i data-lucide="zap"></i></div>
       <h3 class="card-name">Laser Resurfacing</h3>
-      <p class="card-desc">Advanced fractional and ablative laser technologies targeting texture, tone, and signs of ageing — revealing smoother, more luminous skin with minimal downtime.</p>
-      <a href="#" class="card-link">Learn More <i data-lucide="arrow-right"></i></a>
+      <p class="card-desc" data-lang-th="เทคโนโลยี Laser แบบ Fractional และ Ablative ขั้นสูง ที่มุ่งเป้าที่พื้นผิว สีผิว และสัญญาณแห่งวัย — เผยผิวที่เรียบเนียนและเปล่งปลั่งด้วยเวลาพักฟื้นที่น้อยที่สุด" data-lang-en="Advanced fractional and ablative laser technologies targeting texture, tone, and signs of ageing — revealing smoother, more luminous skin with minimal downtime.">เทคโนโลยี Laser แบบ Fractional และ Ablative ขั้นสูง ที่มุ่งเป้าที่พื้นผิว สีผิว และสัญญาณแห่งวัย — เผยผิวที่เรียบเนียนและเปล่งปลั่งด้วยเวลาพักฟื้นที่น้อยที่สุด</p>
+      <a href="#" class="card-link"><span data-lang-th="เรียนรู้เพิ่มเติม" data-lang-en="Learn More">เรียนรู้เพิ่มเติม</span> <i data-lucide="arrow-right"></i></a>
     </div>
     <div class="card">
       <span class="card-no">02</span>
       <div class="card-ico"><i data-lucide="droplets"></i></div>
       <h3 class="card-name">Chemical Peels</h3>
-      <p class="card-desc">Precisely calibrated acid formulations that exfoliate, clarify, and renew — from gentle superficial peels to deep resurfacing for more complex skin concerns.</p>
-      <a href="#" class="card-link">Learn More <i data-lucide="arrow-right"></i></a>
+      <p class="card-desc" data-lang-th="สูตรกรดที่คำนวณอย่างแม่นยำ ช่วยผลัดเซลล์ผิว ทำให้ผิวกระจ่างใส และฟื้นฟูผิว — ตั้งแต่ Peel แบบอ่อนโยนจนถึงการรักษาเชิงลึกสำหรับปัญหาผิวที่ซับซ้อน" data-lang-en="Precisely calibrated acid formulations that exfoliate, clarify, and renew — from gentle superficial peels to deep resurfacing for more complex skin concerns.">สูตรกรดที่คำนวณอย่างแม่นยำ ช่วยผลัดเซลล์ผิว ทำให้ผิวกระจ่างใส และฟื้นฟูผิว — ตั้งแต่ Peel แบบอ่อนโยนจนถึงการรักษาเชิงลึกสำหรับปัญหาผิวที่ซับซ้อน</p>
+      <a href="#" class="card-link"><span data-lang-th="เรียนรู้เพิ่มเติม" data-lang-en="Learn More">เรียนรู้เพิ่มเติม</span> <i data-lucide="arrow-right"></i></a>
     </div>
     <div class="card">
       <span class="card-no">03</span>
       <div class="card-ico"><i data-lucide="sparkles"></i></div>
       <h3 class="card-name">Facial Rejuvenation</h3>
-      <p class="card-desc">Comprehensive facial programmes addressing volume, contour, and vitality — using injectables, biostimulators, and bespoke topical protocols.</p>
-      <a href="#" class="card-link">Learn More <i data-lucide="arrow-right"></i></a>
+      <p class="card-desc" data-lang-th="โปรแกรมดูแลใบหน้าแบบครบวงจร ที่ฟื้นฟูปริมาตร รูปทรง และความมีชีวิตชีวา — ด้วย Filler ชีวกระตุ้น และสูตรการดูแลเฉพาะบุคคล" data-lang-en="Comprehensive facial programmes addressing volume, contour, and vitality — using injectables, biostimulators, and bespoke topical protocols.">โปรแกรมดูแลใบหน้าแบบครบวงจร ที่ฟื้นฟูปริมาตร รูปทรง และความมีชีวิตชีวา — ด้วย Filler ชีวกระตุ้น และสูตรการดูแลเฉพาะบุคคล</p>
+      <a href="#" class="card-link"><span data-lang-th="เรียนรู้เพิ่มเติม" data-lang-en="Learn More">เรียนรู้เพิ่มเติม</span> <i data-lucide="arrow-right"></i></a>
     </div>
     <div class="card">
       <span class="card-no">04</span>
       <div class="card-ico"><i data-lucide="shield"></i></div>
       <h3 class="card-name">Skin Restoration</h3>
-      <p class="card-desc">Medical-grade treatments for pigmentation, scarring, and sensitivity — evidence-based protocols that restore skin health at a cellular level, long-term.</p>
-      <a href="#" class="card-link">Learn More <i data-lucide="arrow-right"></i></a>
+      <p class="card-desc" data-lang-th="การรักษาระดับการแพทย์สำหรับปัญหาฝ้า รอยแผลเป็น และผิวแพ้ง่าย — ด้วยโปรโตคอลที่มีหลักฐานรองรับ ฟื้นฟูสุขภาพผิวระดับเซลล์อย่างยั่งยืน" data-lang-en="Medical-grade treatments for pigmentation, scarring, and sensitivity — evidence-based protocols that restore skin health at a cellular level, long-term.">การรักษาระดับการแพทย์สำหรับปัญหาฝ้า รอยแผลเป็น และผิวแพ้ง่าย — ด้วยโปรโตคอลที่มีหลักฐานรองรับ ฟื้นฟูสุขภาพผิวระดับเซลล์อย่างยั่งยืน</p>
+      <a href="#" class="card-link"><span data-lang-th="เรียนรู้เพิ่มเติม" data-lang-en="Learn More">เรียนรู้เพิ่มเติม</span> <i data-lucide="arrow-right"></i></a>
     </div>
   </div>
 </section>
@@ -654,10 +680,10 @@
   <img src="https://images.unsplash.com/photo-1552693673-1bf958298935?w=1600&h=560&fit=crop" alt="Professional facial skincare treatment" loading="lazy" />
   <div class="feat-veil">
     <div class="feat-body">
-      <p class="eyebrow">Featured Treatment</p>
-      <h2>Laser Precision<br><em>Redefined</em></h2>
-      <p>Our state-of-the-art laser suite offers the full spectrum of light-based treatments — from pigmentation correction to deep skin renewal — delivered by clinicians with advanced laser certification.</p>
-      <a href="#" class="btn btn-accent">View Laser Treatments <i data-lucide="arrow-right"></i></a>
+      <p class="eyebrow" data-lang-th="การรักษาเด่น" data-lang-en="Featured Treatment">การรักษาเด่น</p>
+      <h2 data-lang-th="ความแม่นยำ Laser<br><em>ในมิติใหม่</em>" data-lang-en="Laser Precision<br><em>Redefined</em>" data-i18n-html>ความแม่นยำ Laser<br><em>ในมิติใหม่</em></h2>
+      <p data-lang-th="ห้อง Laser ที่ทันสมัยของเราให้บริการการรักษาด้วยแสงอย่างครบถ้วน — ตั้งแต่การแก้ไขฝ้าจนถึงการฟื้นฟูผิวเชิงลึก — ดำเนินการโดยแพทย์ที่ได้รับการรับรองด้าน Laser" data-lang-en="Our state-of-the-art laser suite offers the full spectrum of light-based treatments — from pigmentation correction to deep skin renewal — delivered by clinicians with advanced laser certification.">ห้อง Laser ที่ทันสมัยของเราให้บริการการรักษาด้วยแสงอย่างครบถ้วน — ตั้งแต่การแก้ไขฝ้าจนถึงการฟื้นฟูผิวเชิงลึก — ดำเนินการโดยแพทย์ที่ได้รับการรับรองด้าน Laser</p>
+      <a href="#" class="btn btn-accent"><span data-lang-th="ดูการรักษาด้วย Laser" data-lang-en="View Laser Treatments">ดูการรักษาด้วย Laser</span> <i data-lucide="arrow-right"></i></a>
     </div>
   </div>
 </section>
@@ -665,24 +691,24 @@
 <!-- PROCESS -->
 <section class="process" id="process">
   <div>
-    <p class="eyebrow" style="color:var(--accent);">Your Journey</p>
-    <h2 class="display" style="color:var(--on-light);">How It Works</h2>
+    <p class="eyebrow" style="color:var(--accent);" data-lang-th="เส้นทางของคุณ" data-lang-en="Your Journey">เส้นทางของคุณ</p>
+    <h2 class="display" style="color:var(--on-light);" data-lang-th="ขั้นตอนการดูแล" data-lang-en="How It Works">ขั้นตอนการดูแล</h2>
   </div>
   <div class="steps">
     <div>
       <div class="step-dot">1</div>
-      <h3 class="step-title">Consultation</h3>
-      <p class="step-desc">A private, unhurried session with a qualified clinician. We listen, examine, and build a complete picture of your skin health, concerns, and goals.</p>
+      <h3 class="step-title" data-lang-th="การปรึกษา" data-lang-en="Consultation">การปรึกษา</h3>
+      <p class="step-desc" data-lang-th="การพบปะส่วนตัวกับแพทย์ผู้เชี่ยวชาญโดยไม่รีบร้อน เราฟัง ตรวจ และสร้างภาพรวมที่สมบูรณ์ของสุขภาพผิว ความกังวล และเป้าหมายของคุณ" data-lang-en="A private, unhurried session with a qualified clinician. We listen, examine, and build a complete picture of your skin health, concerns, and goals.">การพบปะส่วนตัวกับแพทย์ผู้เชี่ยวชาญโดยไม่รีบร้อน เราฟัง ตรวจ และสร้างภาพรวมที่สมบูรณ์ของสุขภาพผิว ความกังวล และเป้าหมายของคุณ</p>
     </div>
     <div>
       <div class="step-dot">2</div>
-      <h3 class="step-title">Personalised Plan</h3>
-      <p class="step-desc">A bespoke treatment plan designed for you — combining the most effective modalities with a clear, transparent breakdown of expectations and timeline.</p>
+      <h3 class="step-title" data-lang-th="แผนการรักษาเฉพาะบุคคล" data-lang-en="Personalised Plan">แผนการรักษาเฉพาะบุคคล</h3>
+      <p class="step-desc" data-lang-th="แผนการรักษาที่ออกแบบเฉพาะสำหรับคุณ — ผสานวิธีการที่มีประสิทธิภาพสูงสุดพร้อมคำอธิบายที่ชัดเจนโปร่งใสเกี่ยวกับความคาดหวังและระยะเวลา" data-lang-en="A bespoke treatment plan designed for you — combining the most effective modalities with a clear, transparent breakdown of expectations and timeline.">แผนการรักษาที่ออกแบบเฉพาะสำหรับคุณ — ผสานวิธีการที่มีประสิทธิภาพสูงสุดพร้อมคำอธิบายที่ชัดเจนโปร่งใสเกี่ยวกับความคาดหวังและระยะเวลา</p>
     </div>
     <div>
       <div class="step-dot">3</div>
-      <h3 class="step-title">Care &amp; Follow-Up</h3>
-      <p class="step-desc">Our commitment extends beyond each appointment. We monitor your progress, adjust protocols, and remain available throughout your skin journey.</p>
+      <h3 class="step-title" data-lang-th="การดูแลและติดตามผล" data-lang-en="Care &amp; Follow-Up">การดูแลและติดตามผล</h3>
+      <p class="step-desc" data-lang-th="ความมุ่งมั่นของเราไม่ได้สิ้นสุดหลังการนัดหมาย เราติดตามความคืบหน้า ปรับโปรโตคอล และพร้อมดูแลคุณตลอดเส้นทางการดูแลผิว" data-lang-en="Our commitment extends beyond each appointment. We monitor your progress, adjust protocols, and remain available throughout your skin journey.">ความมุ่งมั่นของเราไม่ได้สิ้นสุดหลังการนัดหมาย เราติดตามความคืบหน้า ปรับโปรโตคอล และพร้อมดูแลคุณตลอดเส้นทางการดูแลผิว</p>
     </div>
   </div>
 </section>
@@ -693,29 +719,29 @@
     <img src="https://images.unsplash.com/photo-1713085085470-fba013d67e65?w=700&h=700&fit=crop" alt="Clinician performing facial treatment" loading="lazy" />
   </div>
   <div class="about-body">
-    <p class="eyebrow">Our Commitment</p>
-    <h2>Science Meets<br><em>Artistry</em></h2>
-    <p>At Glow Clinic, exceptional skin care begins with genuine expertise and ends with results you can see. Our team combines advanced clinical training with a meticulous, unhurried approach to every procedure.</p>
+    <p class="eyebrow" data-lang-th="ความมุ่งมั่นของเรา" data-lang-en="Our Commitment">ความมุ่งมั่นของเรา</p>
+    <h2 data-lang-th="วิทยาศาสตร์<br><em>ผสานศิลปะ</em>" data-lang-en="Science Meets<br><em>Artistry</em>" data-i18n-html>วิทยาศาสตร์<br><em>ผสานศิลปะ</em></h2>
+    <p data-lang-th="ที่ Glow Clinic การดูแลผิวอย่างยอดเยี่ยมเริ่มต้นจากความเชี่ยวชาญที่แท้จริงและสิ้นสุดด้วยผลลัพธ์ที่มองเห็นได้ ทีมของเราผสานการฝึกอบรมทางคลินิกขั้นสูงกับแนวทางที่ละเอียดอ่อนและไม่เร่งรีบในทุกขั้นตอน" data-lang-en="At Glow Clinic, exceptional skin care begins with genuine expertise and ends with results you can see. Our team combines advanced clinical training with a meticulous, unhurried approach to every procedure.">ที่ Glow Clinic การดูแลผิวอย่างยอดเยี่ยมเริ่มต้นจากความเชี่ยวชาญที่แท้จริงและสิ้นสุดด้วยผลลัพธ์ที่มองเห็นได้ ทีมของเราผสานการฝึกอบรมทางคลินิกขั้นสูงกับแนวทางที่ละเอียดอ่อนและไม่เร่งรีบในทุกขั้นตอน</p>
     <div class="trust">
       <div class="trust-row">
         <div class="trust-ico"><i data-lucide="award"></i></div>
         <div class="trust-txt">
-          <strong>Board-Certified Practitioners</strong>
-          <span>All procedures performed by qualified, registered clinicians with specialist training.</span>
+          <strong data-lang-th="แพทย์ผู้เชี่ยวชาญที่ได้รับการรับรอง" data-lang-en="Board-Certified Practitioners">แพทย์ผู้เชี่ยวชาญที่ได้รับการรับรอง</strong>
+          <span data-lang-th="ทุกขั้นตอนดำเนินการโดยแพทย์ที่มีคุณวุฒิและจดทะเบียนถูกต้องพร้อมการฝึกอบรมเฉพาะทาง" data-lang-en="All procedures performed by qualified, registered clinicians with specialist training.">ทุกขั้นตอนดำเนินการโดยแพทย์ที่มีคุณวุฒิและจดทะเบียนถูกต้องพร้อมการฝึกอบรมเฉพาะทาง</span>
         </div>
       </div>
       <div class="trust-row">
         <div class="trust-ico"><i data-lucide="microscope"></i></div>
         <div class="trust-txt">
-          <strong>Evidence-Based Protocols</strong>
-          <span>Every treatment grounded in current clinical literature and reviewed outcomes data.</span>
+          <strong data-lang-th="โปรโตคอลที่ยึดหลักฐานทางการแพทย์" data-lang-en="Evidence-Based Protocols">โปรโตคอลที่ยึดหลักฐานทางการแพทย์</strong>
+          <span data-lang-th="การรักษาทุกประเภทยึดถือวรรณกรรมทางคลินิกปัจจุบันและข้อมูลผลลัพธ์ที่ผ่านการตรวจสอบ" data-lang-en="Every treatment grounded in current clinical literature and reviewed outcomes data.">การรักษาทุกประเภทยึดถือวรรณกรรมทางคลินิกปัจจุบันและข้อมูลผลลัพธ์ที่ผ่านการตรวจสอบ</span>
         </div>
       </div>
       <div class="trust-row">
         <div class="trust-ico"><i data-lucide="heart"></i></div>
         <div class="trust-txt">
-          <strong>Patient-First Philosophy</strong>
-          <span>We only recommend treatments that genuinely serve your long-term skin health — nothing more.</span>
+          <strong data-lang-th="ปรัชญาที่ผู้ป่วยมาก่อน" data-lang-en="Patient-First Philosophy">ปรัชญาที่ผู้ป่วยมาก่อน</strong>
+          <span data-lang-th="เราแนะนำเฉพาะการรักษาที่เป็นประโยชน์ต่อสุขภาพผิวระยะยาวของคุณอย่างแท้จริง — ไม่มีอะไรเกินกว่านั้น" data-lang-en="We only recommend treatments that genuinely serve your long-term skin health — nothing more.">เราแนะนำเฉพาะการรักษาที่เป็นประโยชน์ต่อสุขภาพผิวระยะยาวของคุณอย่างแท้จริง — ไม่มีอะไรเกินกว่านั้น</span>
         </div>
       </div>
     </div>
@@ -726,8 +752,8 @@
 <section class="testi">
   <div class="sec-hd">
     <div>
-      <p class="eyebrow" style="color:var(--accent);">Client Voices</p>
-      <h2 class="display" style="color:var(--on-light);">What Our Clients Say</h2>
+      <p class="eyebrow" style="color:var(--accent);" data-lang-th="เสียงจากลูกค้า" data-lang-en="Client Voices">เสียงจากลูกค้า</p>
+      <h2 class="display" style="color:var(--on-light);" data-lang-th="สิ่งที่ลูกค้าของเราพูด" data-lang-en="What Our Clients Say">สิ่งที่ลูกค้าของเราพูด</h2>
     </div>
   </div>
   <div class="testi-grid">
@@ -736,7 +762,7 @@
         <i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i>
         <i data-lucide="star"></i><i data-lucide="star"></i>
       </div>
-      <p class="tquote">"I've never felt more confident in my own skin. The laser resurfacing was transformative — the results were everything I'd hoped for, and the care I received was exceptional."</p>
+      <p class="tquote" data-lang-th="&ldquo;ฉันไม่เคยรู้สึกมั่นใจในตัวเองมากขนาดนี้มาก่อน การทำ Laser Resurfacing เปลี่ยนแปลงผิวฉันอย่างสิ้นเชิง — ผลลัพธ์เกินความคาดหวัง และการดูแลที่ได้รับนั้นยอดเยี่ยมมาก&rdquo;" data-lang-en="&ldquo;I&rsquo;ve never felt more confident in my own skin. The laser resurfacing was transformative — the results were everything I&rsquo;d hoped for, and the care I received was exceptional.&rdquo;" data-i18n-html>&ldquo;ฉันไม่เคยรู้สึกมั่นใจในตัวเองมากขนาดนี้มาก่อน การทำ Laser Resurfacing เปลี่ยนแปลงผิวฉันอย่างสิ้นเชิง — ผลลัพธ์เกินความคาดหวัง และการดูแลที่ได้รับนั้นยอดเยี่ยมมาก&rdquo;</p>
       <div class="tauthor">
         <div class="tavatar">
           <img src="https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=84&h=84&fit=crop&crop=face" alt="" loading="lazy" />
@@ -752,7 +778,7 @@
         <i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i>
         <i data-lucide="star"></i><i data-lucide="star"></i>
       </div>
-      <p class="tquote">"The team took the time to truly understand my skin. My consultation was thorough, honest, and completely without pressure. I trusted them completely — and the results speak for themselves."</p>
+      <p class="tquote" data-lang-th="&ldquo;ทีมงานใช้เวลาทำความเข้าใจผิวของฉันอย่างแท้จริง การปรึกษาครั้งแรกละเอียดรอบคอบ ตรงไปตรงมา และปราศจากแรงกดดันใดๆ ฉันไว้วางใจพวกเขาอย่างสมบูรณ์ — และผลลัพธ์พูดแทนตัวเอง&rdquo;" data-lang-en="&ldquo;The team took the time to truly understand my skin. My consultation was thorough, honest, and completely without pressure. I trusted them completely — and the results speak for themselves.&rdquo;" data-i18n-html>&ldquo;ทีมงานใช้เวลาทำความเข้าใจผิวของฉันอย่างแท้จริง การปรึกษาครั้งแรกละเอียดรอบคอบ ตรงไปตรงมา และปราศจากแรงกดดันใดๆ ฉันไว้วางใจพวกเขาอย่างสมบูรณ์ — และผลลัพธ์พูดแทนตัวเอง&rdquo;</p>
       <div class="tauthor">
         <div class="tavatar">
           <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=84&h=84&fit=crop&crop=face" alt="" loading="lazy" />
@@ -768,7 +794,7 @@
         <i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i>
         <i data-lucide="star"></i><i data-lucide="star"></i>
       </div>
-      <p class="tquote">"My pigmentation had been a source of real anxiety for years. After a course of targeted treatments, it's completely resolved. Glow Clinic changed how I feel walking out the door every morning."</p>
+      <p class="tquote" data-lang-th="&ldquo;ปัญหาฝ้าของฉันเป็นแหล่งความวิตกกังวลมานานหลายปี หลังจากผ่านชุดการรักษาที่ตรงเป้า มันหายไปอย่างสมบูรณ์ Glow Clinic เปลี่ยนความรู้สึกของฉันทุกเช้าที่ออกจากบ้าน&rdquo;" data-lang-en="&ldquo;My pigmentation had been a source of real anxiety for years. After a course of targeted treatments, it&rsquo;s completely resolved. Glow Clinic changed how I feel walking out the door every morning.&rdquo;" data-i18n-html>&ldquo;ปัญหาฝ้าของฉันเป็นแหล่งความวิตกกังวลมานานหลายปี หลังจากผ่านชุดการรักษาที่ตรงเป้า มันหายไปอย่างสมบูรณ์ Glow Clinic เปลี่ยนความรู้สึกของฉันทุกเช้าที่ออกจากบ้าน&rdquo;</p>
       <div class="tauthor">
         <div class="tavatar">
           <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=84&h=84&fit=crop&crop=face" alt="" loading="lazy" />
@@ -785,44 +811,44 @@
 <!-- FAQ -->
 <section class="faq" id="faq">
   <div>
-    <p class="eyebrow">Questions</p>
-    <h2 class="display" style="color:var(--on-dark);">Common Questions</h2>
+    <p class="eyebrow" data-lang-th="คำถาม" data-lang-en="Questions">คำถาม</p>
+    <h2 class="display" style="color:var(--on-dark);" data-lang-th="คำถามที่พบบ่อย" data-lang-en="Common Questions">คำถามที่พบบ่อย</h2>
   </div>
   <div class="faq-list">
     <div class="faq-item">
       <button class="fq">
-        <span class="fq-txt">What should I expect during my first consultation?</span>
+        <span class="fq-txt" data-lang-th="ฉันควรคาดหวังอะไรในการปรึกษาครั้งแรก?" data-lang-en="What should I expect during my first consultation?">ฉันควรคาดหวังอะไรในการปรึกษาครั้งแรก?</span>
         <div class="fq-ico"><i data-lucide="plus"></i></div>
       </button>
-      <div class="fa"><p>Your initial consultation is a private, one-to-one session with one of our qualified practitioners — typically 45–60 minutes. It includes a thorough skin analysis, a review of your medical history, and a candid conversation about your concerns and goals. There is no obligation to proceed with any treatment.</p></div>
+      <div class="fa"><p data-lang-th="การปรึกษาครั้งแรกเป็นการพบปะแบบตัวต่อตัวกับแพทย์ผู้เชี่ยวชาญของเรา — โดยปกติใช้เวลา 45–60 นาที ประกอบด้วยการวิเคราะห์ผิวอย่างละเอียด การทบทวนประวัติการแพทย์ และการพูดคุยอย่างตรงไปตรงมาเกี่ยวกับความกังวลและเป้าหมายของคุณ ไม่มีข้อผูกมัดในการรับการรักษาใดๆ" data-lang-en="Your initial consultation is a private, one-to-one session with one of our qualified practitioners — typically 45–60 minutes. It includes a thorough skin analysis, a review of your medical history, and a candid conversation about your concerns and goals. There is no obligation to proceed with any treatment.">การปรึกษาครั้งแรกเป็นการพบปะแบบตัวต่อตัวกับแพทย์ผู้เชี่ยวชาญของเรา — โดยปกติใช้เวลา 45–60 นาที ประกอบด้วยการวิเคราะห์ผิวอย่างละเอียด การทบทวนประวัติการแพทย์ และการพูดคุยอย่างตรงไปตรงมาเกี่ยวกับความกังวลและเป้าหมายของคุณ ไม่มีข้อผูกมัดในการรับการรักษาใดๆ</p></div>
     </div>
     <div class="faq-item">
       <button class="fq">
-        <span class="fq-txt">How many sessions will I need?</span>
+        <span class="fq-txt" data-lang-th="ฉันต้องมาทำกี่ครั้ง?" data-lang-en="How many sessions will I need?">ฉันต้องมาทำกี่ครั้ง?</span>
         <div class="fq-ico"><i data-lucide="plus"></i></div>
       </button>
-      <div class="fa"><p>This varies considerably depending on the treatment and your individual skin. Some results are visible after a single session; others — particularly for skin restoration or deeper resurfacing — require a course of treatments. Your clinician will provide a realistic, honest timeline during your consultation.</p></div>
+      <div class="fa"><p data-lang-th="จำนวนครั้งแตกต่างกันขึ้นอยู่กับประเภทการรักษาและสภาพผิวของคุณ บางผลลัพธ์เห็นได้หลังจากครั้งเดียว ส่วนอื่น — โดยเฉพาะการฟื้นฟูผิวหรือการรักษาเชิงลึก — ต้องการหลายครั้ง แพทย์จะให้ระยะเวลาที่สมจริงและตรงไปตรงมาในระหว่างการปรึกษา" data-lang-en="This varies considerably depending on the treatment and your individual skin. Some results are visible after a single session; others — particularly for skin restoration or deeper resurfacing — require a course of treatments. Your clinician will provide a realistic, honest timeline during your consultation.">จำนวนครั้งแตกต่างกันขึ้นอยู่กับประเภทการรักษาและสภาพผิวของคุณ บางผลลัพธ์เห็นได้หลังจากครั้งเดียว ส่วนอื่น — โดยเฉพาะการฟื้นฟูผิวหรือการรักษาเชิงลึก — ต้องการหลายครั้ง แพทย์จะให้ระยะเวลาที่สมจริงและตรงไปตรงมาในระหว่างการปรึกษา</p></div>
     </div>
     <div class="faq-item">
       <button class="fq">
-        <span class="fq-txt">Are the treatments painful?</span>
+        <span class="fq-txt" data-lang-th="การรักษาเจ็บปวดไหม?" data-lang-en="Are the treatments painful?">การรักษาเจ็บปวดไหม?</span>
         <div class="fq-ico"><i data-lucide="plus"></i></div>
       </button>
-      <div class="fa"><p>Comfort levels vary by procedure. Many clients describe laser and peel treatments as a warm or tingling sensation rather than pain. Where appropriate, we use topical anaesthetics to ensure the experience is as comfortable as possible. Your clinician will always talk you through what to expect beforehand.</p></div>
+      <div class="fa"><p data-lang-th="ระดับความสะดวกสบายแตกต่างกันตามขั้นตอน ลูกค้าส่วนใหญ่อธิบายการรักษาด้วย Laser และ Peel ว่ารู้สึกอุ่นหรือเสียวซ่ามากกว่าเจ็บปวด เมื่อเหมาะสม เราจะใช้ยาชาเฉพาะที่เพื่อให้ประสบการณ์สบายที่สุด แพทย์จะอธิบายสิ่งที่คาดหวังก่อนเสมอ" data-lang-en="Comfort levels vary by procedure. Many clients describe laser and peel treatments as a warm or tingling sensation rather than pain. Where appropriate, we use topical anaesthetics to ensure the experience is as comfortable as possible. Your clinician will always talk you through what to expect beforehand.">ระดับความสะดวกสบายแตกต่างกันตามขั้นตอน ลูกค้าส่วนใหญ่อธิบายการรักษาด้วย Laser และ Peel ว่ารู้สึกอุ่นหรือเสียวซ่ามากกว่าเจ็บปวด เมื่อเหมาะสม เราจะใช้ยาชาเฉพาะที่เพื่อให้ประสบการณ์สบายที่สุด แพทย์จะอธิบายสิ่งที่คาดหวังก่อนเสมอ</p></div>
     </div>
     <div class="faq-item">
       <button class="fq">
-        <span class="fq-txt">What is the recovery time?</span>
+        <span class="fq-txt" data-lang-th="ระยะเวลาพักฟื้นนานแค่ไหน?" data-lang-en="What is the recovery time?">ระยะเวลาพักฟื้นนานแค่ไหน?</span>
         <div class="fq-ico"><i data-lucide="plus"></i></div>
       </button>
-      <div class="fa"><p>Recovery depends on treatment intensity. Light procedures like superficial peels or photon therapy involve no downtime. Deeper laser treatments may involve redness and peeling for 5–10 days. We provide detailed aftercare instructions and remain available throughout your recovery period.</p></div>
+      <div class="fa"><p data-lang-th="การพักฟื้นขึ้นอยู่กับความเข้มข้นของการรักษา ขั้นตอนเบาเช่น Peel แบบตื้นหรือ Photon Therapy ไม่มีเวลาหยุดพัก การรักษาด้วย Laser เชิงลึกอาจมีผิวแดงและลอกเป็นเวลา 5–10 วัน เราจัดเตรียมคำแนะนำการดูแลหลังรักษาอย่างละเอียดและพร้อมให้ความช่วยเหลือตลอดช่วงพักฟื้น" data-lang-en="Recovery depends on treatment intensity. Light procedures like superficial peels or photon therapy involve no downtime. Deeper laser treatments may involve redness and peeling for 5–10 days. We provide detailed aftercare instructions and remain available throughout your recovery period.">การพักฟื้นขึ้นอยู่กับความเข้มข้นของการรักษา ขั้นตอนเบาเช่น Peel แบบตื้นหรือ Photon Therapy ไม่มีเวลาหยุดพัก การรักษาด้วย Laser เชิงลึกอาจมีผิวแดงและลอกเป็นเวลา 5–10 วัน เราจัดเตรียมคำแนะนำการดูแลหลังรักษาอย่างละเอียดและพร้อมให้ความช่วยเหลือตลอดช่วงพักฟื้น</p></div>
     </div>
     <div class="faq-item">
       <button class="fq">
-        <span class="fq-txt">Do you offer financing options?</span>
+        <span class="fq-txt" data-lang-th="มีตัวเลือกการผ่อนชำระหรือไม่?" data-lang-en="Do you offer financing options?">มีตัวเลือกการผ่อนชำระหรือไม่?</span>
         <div class="fq-ico"><i data-lucide="plus"></i></div>
       </button>
-      <div class="fa"><p>Yes. We offer flexible payment plans through our finance partner, making it possible to spread the cost of multi-session treatment courses. Full details are available during your consultation, with no pressure to commit on the day.</p></div>
+      <div class="fa"><p data-lang-th="มี เราเสนอแผนการชำระเงินที่ยืดหยุ่นผ่านพันธมิตรทางการเงินของเรา ทำให้สามารถแบ่งค่าใช้จ่ายของการรักษาหลายครั้งได้ รายละเอียดทั้งหมดจะชี้แจงในระหว่างการปรึกษา โดยไม่มีแรงกดดันให้ตัดสินใจในวันนั้น" data-lang-en="Yes. We offer flexible payment plans through our finance partner, making it possible to spread the cost of multi-session treatment courses. Full details are available during your consultation, with no pressure to commit on the day.">มี เราเสนอแผนการชำระเงินที่ยืดหยุ่นผ่านพันธมิตรทางการเงินของเรา ทำให้สามารถแบ่งค่าใช้จ่ายของการรักษาหลายครั้งได้ รายละเอียดทั้งหมดจะชี้แจงในระหว่างการปรึกษา โดยไม่มีแรงกดดันให้ตัดสินใจในวันนั้น</p></div>
     </div>
   </div>
 </section>
@@ -830,12 +856,12 @@
 <!-- BOOKING CTA -->
 <section class="cta-strip" id="booking">
   <div class="cta-txt">
-    <h2>Ready to Begin<br>Your Skin Journey?</h2>
-    <p>Consultations are complimentary. No pressure, no obligation.</p>
+    <h2 data-lang-th="พร้อมเริ่มต้นการดูแลผิว<br>ของคุณแล้วหรือยัง?" data-lang-en="Ready to Begin<br>Your Skin Journey?" data-i18n-html>พร้อมเริ่มต้นการดูแลผิว<br>ของคุณแล้วหรือยัง?</h2>
+    <p data-lang-th="การปรึกษาฟรี ไม่มีแรงกดดัน ไม่มีข้อผูกมัด" data-lang-en="Consultations are complimentary. No pressure, no obligation.">การปรึกษาฟรี ไม่มีแรงกดดัน ไม่มีข้อผูกมัด</p>
   </div>
   <div class="cta-acts">
-    <a href="tel:+442012345678" class="btn btn-dark"><i data-lucide="phone"></i> Call Us</a>
-    <a href="#" class="btn btn-outline-ink"><i data-lucide="calendar"></i> Book Online</a>
+    <a href="tel:+442012345678" class="btn btn-dark"><i data-lucide="phone"></i> <span data-lang-th="โทรหาเรา" data-lang-en="Call Us">โทรหาเรา</span></a>
+    <a href="#" class="btn btn-outline-ink"><i data-lucide="calendar"></i> <span data-lang-th="จองออนไลน์" data-lang-en="Book Online">จองออนไลน์</span></a>
   </div>
 </section>
 
@@ -847,40 +873,40 @@
         <span class="logo-main">GLOW</span>
         <span class="logo-sub">Aesthetic Clinic</span>
       </div>
-      <p>A modern aesthetic clinic offering evidence-based skin treatments, laser procedures, and bespoke facial care — guided by genuine clinical expertise.</p>
+      <p data-lang-th="คลินิกความงามสมัยใหม่ที่ให้บริการการรักษาผิวพรรณตามหลักฐานทางการแพทย์ ขั้นตอน Laser และการดูแลใบหน้าเฉพาะบุคคล — นำโดยความเชี่ยวชาญทางคลินิกที่แท้จริง" data-lang-en="A modern aesthetic clinic offering evidence-based skin treatments, laser procedures, and bespoke facial care — guided by genuine clinical expertise.">คลินิกความงามสมัยใหม่ที่ให้บริการการรักษาผิวพรรณตามหลักฐานทางการแพทย์ ขั้นตอน Laser และการดูแลใบหน้าเฉพาะบุคคล — นำโดยความเชี่ยวชาญทางคลินิกที่แท้จริง</p>
     </div>
     <div class="ft-col">
-      <h4>Treatments</h4>
+      <h4 data-lang-th="การรักษา" data-lang-en="Treatments">การรักษา</h4>
       <ul>
         <li><a href="#">Laser Resurfacing</a></li>
         <li><a href="#">Chemical Peels</a></li>
         <li><a href="#">Facial Rejuvenation</a></li>
         <li><a href="#">Skin Restoration</a></li>
-        <li><a href="#">All Treatments</a></li>
+        <li><a href="#" data-lang-th="การรักษาทั้งหมด" data-lang-en="All Treatments">การรักษาทั้งหมด</a></li>
       </ul>
     </div>
     <div class="ft-col">
-      <h4>Clinic</h4>
+      <h4 data-lang-th="คลินิก" data-lang-en="Clinic">คลินิก</h4>
       <ul>
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">Our Team</a></li>
-        <li><a href="#">Patient Stories</a></li>
-        <li><a href="#">Blog</a></li>
-        <li><a href="#">Careers</a></li>
+        <li><a href="#" data-lang-th="เกี่ยวกับเรา" data-lang-en="About Us">เกี่ยวกับเรา</a></li>
+        <li><a href="#" data-lang-th="ทีมของเรา" data-lang-en="Our Team">ทีมของเรา</a></li>
+        <li><a href="#" data-lang-th="เรื่องราวผู้รับบริการ" data-lang-en="Patient Stories">เรื่องราวผู้รับบริการ</a></li>
+        <li><a href="#" data-lang-th="บทความ" data-lang-en="Blog">บทความ</a></li>
+        <li><a href="#" data-lang-th="ร่วมงานกับเรา" data-lang-en="Careers">ร่วมงานกับเรา</a></li>
       </ul>
     </div>
     <div class="ft-col">
-      <h4>Contact</h4>
+      <h4 data-lang-th="ติดต่อ" data-lang-en="Contact">ติดต่อ</h4>
       <ul>
         <li><a href="tel:+442012345678">+44 20 1234 5678</a></li>
         <li><a href="mailto:hello@glowclinic.co.uk">hello@glowclinic.co.uk</a></li>
         <li><a href="#">12 Harley Street, London</a></li>
-        <li><a href="#">Mon–Sat: 9am–6pm</a></li>
+        <li><a href="#" data-lang-th="จันทร์–เสาร์: 9.00–18.00 น." data-lang-en="Mon–Sat: 9am–6pm">จันทร์–เสาร์: 9.00–18.00 น.</a></li>
       </ul>
     </div>
   </div>
   <div class="ft-bot">
-    <p class="ft-copy">2024 Glow Clinic. All rights reserved.</p>
+    <p class="ft-copy" data-lang-th="2024 Glow Clinic. สงวนลิขสิทธิ์ทุกประการ" data-lang-en="2024 Glow Clinic. All rights reserved.">2024 Glow Clinic. สงวนลิขสิทธิ์ทุกประการ</p>
     <div class="ft-social">
       <a href="#" aria-label="Instagram"><i data-lucide="instagram"></i></a>
       <a href="#" aria-label="Facebook"><i data-lucide="facebook"></i></a>
@@ -919,6 +945,38 @@
       if (!wasOpen) item.classList.add('open');
     });
   });
+
+  // Language switcher
+  function applyLang(lang) {
+    document.documentElement.lang = lang;
+    document.title = lang === 'th'
+      ? 'Glow Clinic — การรักษาผิวพรรณและความงาม'
+      : 'Glow Clinic — Aesthetic & Skin Treatments';
+
+    document.querySelectorAll('[data-lang-th]').forEach(function(el) {
+      var val = lang === 'th' ? el.getAttribute('data-lang-th') : el.getAttribute('data-lang-en');
+      if (el.hasAttribute('data-i18n-html')) {
+        el.innerHTML = val;
+      } else {
+        el.textContent = val;
+      }
+    });
+
+    document.querySelectorAll('.lang-btn').forEach(function(btn) {
+      btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+    });
+
+    localStorage.setItem('lang', lang);
+  }
+
+  document.querySelectorAll('.lang-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      applyLang(btn.getAttribute('data-lang'));
+    });
+  });
+
+  // Init — default Thai, respect stored preference
+  applyLang(localStorage.getItem('lang') || 'th');
 </script>
 </body>
 </html>
