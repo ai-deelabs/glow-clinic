@@ -129,9 +129,13 @@
       background: var(--bg);
       z-index: 190;
       flex-direction: column;
+      justify-content: flex-start;
+      align-items: stretch;
       padding: 32px 24px;
       gap: 8px;
       border-top: 1px solid var(--border);
+      height: auto;
+      overflow-y: auto;
     }
 
     .mobile-nav.open { display: flex; }
@@ -885,6 +889,15 @@
     .f-group select:focus,
     .f-group textarea:focus { border-color: var(--accent); }
 
+    .f-group select {
+      -webkit-appearance: none;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' stroke='rgba(255,255,255,0.35)' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 38px;
+    }
+
     .f-group select option { background: #1a1714; }
 
     .btn-submit {
@@ -1042,6 +1055,7 @@
     @media (max-width: 520px) {
       .stats { grid-template-columns: 1fr; }
       .stat { border-right: none !important; }
+      .stat:nth-child(3) { border-bottom: 1px solid rgba(255,255,255,.06); }
       .footer-top { grid-template-columns: 1fr; }
     }
   </style>
@@ -1065,17 +1079,17 @@
         </button>
       </li>
     </ul>
-    <button class="nav-toggle" aria-label="Toggle menu" onclick="document.querySelector('.mobile-nav').classList.toggle('open')">
+    <button class="nav-toggle" aria-label="Toggle menu">
       <i data-lucide="menu"></i>
     </button>
   </nav>
 
   <nav class="mobile-nav">
-    <a href="#services" data-lang-th="บริการ" data-lang-en="Services" onclick="this.parentNode.classList.remove('open')">บริการ</a>
-    <a href="#about" data-lang-th="เกี่ยวกับเรา" data-lang-en="About" onclick="this.parentNode.classList.remove('open')">เกี่ยวกับเรา</a>
-    <a href="#process" data-lang-th="ขั้นตอนการรักษา" data-lang-en="Our Process" onclick="this.parentNode.classList.remove('open')">ขั้นตอนการรักษา</a>
-    <a href="#reviews" data-lang-th="รีวิว" data-lang-en="Reviews" onclick="this.parentNode.classList.remove('open')">รีวิว</a>
-    <a href="#booking" data-lang-th="นัดปรึกษา" data-lang-en="Book Consultation" onclick="this.parentNode.classList.remove('open')">นัดปรึกษา</a>
+    <a href="#services" data-lang-th="บริการ" data-lang-en="Services">บริการ</a>
+    <a href="#about" data-lang-th="เกี่ยวกับเรา" data-lang-en="About">เกี่ยวกับเรา</a>
+    <a href="#process" data-lang-th="ขั้นตอนการรักษา" data-lang-en="Our Process">ขั้นตอนการรักษา</a>
+    <a href="#reviews" data-lang-th="รีวิว" data-lang-en="Reviews">รีวิว</a>
+    <a href="#booking" data-lang-th="นัดปรึกษา" data-lang-en="Book Consultation">นัดปรึกษา</a>
     <div class="mobile-lang">
       <button class="lang-switcher" aria-label="เปลี่ยนภาษา / Switch language">
         <span class="ls-th ls-active">TH</span>
@@ -1510,6 +1524,28 @@
 
   <script>
     lucide.createIcons();
+
+    // ── MOBILE NAV TOGGLE ──
+    (function () {
+      var toggle = document.querySelector('.nav-toggle');
+      var mobileNav = document.querySelector('.mobile-nav');
+
+      function closeMenu() {
+        mobileNav.classList.remove('open');
+        toggle.querySelector('i').setAttribute('data-lucide', 'menu');
+        lucide.createIcons({ nodes: [toggle] });
+      }
+
+      toggle.addEventListener('click', function () {
+        var isOpen = mobileNav.classList.toggle('open');
+        toggle.querySelector('i').setAttribute('data-lucide', isOpen ? 'x' : 'menu');
+        lucide.createIcons({ nodes: [toggle] });
+      });
+
+      mobileNav.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', closeMenu);
+      });
+    })();
 
     // ── LANGUAGE SWITCHER ──
     (function () {
