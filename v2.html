@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Glow Clinic — Aesthetic &amp; Skin Treatments</title>
+  <script src="https://unpkg.com/lucide@0.460.0"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:        #0E0C0A;
+      --ink-mid:    #1C1916;
+      --cream:      #F5F0E8;
+      --cream-dark: #EDE5D8;
+      --on-dark:    #EDE7DC;
+      --muted-dark: #9A918A;
+      --on-light:   #0E0C0A;
+      --muted-light:#7A7268;
+      --accent:     #C4846A;
+      --accent-lt:  #F0D8CC;
+      --bd-dark:    rgba(255,255,255,0.07);
+      --bd-light:   #D8D0C4;
+      --serif:      'Cormorant Garamond', Georgia, serif;
+      --sans:       'Inter', system-ui, sans-serif;
+      --gutter:     clamp(24px, 5vw, 80px);
+      --mw:         1280px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--ink);
+      color: var(--on-dark);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: var(--sans); }
+
+    /* ── NAV ─────────────────────────────────────────── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px var(--gutter);
+      transition: background .3s, border-color .3s;
+      border-bottom: 1px solid transparent;
+    }
+    .nav.stuck {
+      background: rgba(14,12,10,.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-color: var(--bd-dark);
+    }
+    .logo { display: flex; flex-direction: column; line-height: 1; }
+    .logo-main {
+      font-family: var(--serif);
+      font-size: 22px; font-weight: 300;
+      letter-spacing: .18em; color: var(--on-dark);
+    }
+    .logo-sub {
+      font-size: 8.5px; font-weight: 500;
+      letter-spacing: .32em; text-transform: uppercase;
+      color: var(--muted-dark);
+    }
+    .nav-links { display: flex; gap: 34px; list-style: none; align-items: center; }
+    .nav-links a {
+      font-size: 11.5px; font-weight: 500;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--muted-dark); transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--on-dark); }
+    .nav-book {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--ink); background: var(--cream);
+      padding: 10px 22px; border-radius: 2px;
+      transition: background .2s, transform .2s;
+    }
+    .nav-book:hover { background: var(--accent-lt); transform: translateY(-1px); }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 1.5px;
+      background: var(--on-dark); transition: all .3s;
+    }
+
+    /* ── MOBILE MENU ─────────────────────────────────── */
+    .mob-menu {
+      display: none; position: fixed; inset: 0;
+      background: var(--ink-mid); z-index: 99;
+      flex-direction: column; align-items: center; justify-content: center; gap: 28px;
+    }
+    .mob-menu.open { display: flex; }
+    .mob-close {
+      position: absolute; top: 20px; right: var(--gutter);
+      background: none; border: none; color: var(--on-dark); cursor: pointer;
+    }
+    .mob-menu a {
+      font-family: var(--serif); font-size: 38px; font-weight: 300;
+      letter-spacing: .04em; color: var(--on-dark);
+    }
+    .mob-menu .mob-cta {
+      margin-top: 12px; font-family: var(--sans);
+      font-size: 11px; font-weight: 600; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--ink);
+      background: var(--accent); padding: 14px 36px; border-radius: 2px;
+    }
+
+    /* ── BUTTONS ─────────────────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 11.5px; font-weight: 600;
+      letter-spacing: .13em; text-transform: uppercase;
+      padding: 15px 30px; border-radius: 2px; border: none;
+      cursor: pointer; transition: all .25s;
+    }
+    .btn i { width: 14px; height: 14px; }
+    .btn-accent { color: var(--ink); background: var(--accent); }
+    .btn-accent:hover { background: var(--accent-lt); transform: translateY(-2px); }
+    .btn-ghost {
+      color: var(--on-dark); background: transparent;
+      border: 1px solid var(--bd-dark); padding: 14px 24px;
+    }
+    .btn-ghost:hover { border-color: var(--muted-dark); background: rgba(255,255,255,.04); }
+    .btn-dark { color: var(--on-dark); background: var(--ink); }
+    .btn-dark:hover { opacity: .82; transform: translateY(-2px); }
+    .btn-outline-ink {
+      color: var(--ink); background: transparent;
+      border: 1.5px solid rgba(14,12,10,.28); padding: 13.5px 24px;
+    }
+    .btn-outline-ink:hover { border-color: var(--ink); }
+
+    /* ── SECTION LABELS ──────────────────────────────── */
+    .eyebrow {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: .26em; text-transform: uppercase; color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .eyebrow::before {
+      content: ''; display: block;
+      width: 28px; height: 1px; background: var(--accent);
+    }
+    .display {
+      font-family: var(--serif);
+      font-size: clamp(38px, 4.5vw, 60px);
+      font-weight: 300; line-height: 1.08;
+    }
+    .display em { font-style: italic; }
+
+    /* ── HERO ────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 56% 1fr;
+      background: var(--ink);
+    }
+    .hero-body {
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 130px var(--gutter) 80px;
+      position: relative; z-index: 2;
+    }
+    .hero-body .eyebrow { margin-bottom: 22px; }
+    .hero-h1 {
+      font-family: var(--serif);
+      font-size: clamp(54px, 6.5vw, 92px);
+      font-weight: 300; line-height: 1.04;
+      color: var(--on-dark); margin-bottom: 26px;
+    }
+    .hero-h1 em { font-style: italic; color: var(--accent); }
+    .hero-sub {
+      font-size: 15.5px; font-weight: 300; line-height: 1.75;
+      color: var(--muted-dark); max-width: 430px; margin-bottom: 42px;
+    }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 60px; }
+    .hero-stats {
+      display: flex; gap: 0;
+      border-top: 1px solid var(--bd-dark); padding-top: 32px;
+    }
+    .h-stat { flex: 1; }
+    .h-stat:not(:last-child) {
+      border-right: 1px solid var(--bd-dark);
+      padding-right: 28px; margin-right: 28px;
+    }
+    .h-stat .n {
+      font-family: var(--serif); font-size: 38px;
+      font-weight: 300; color: var(--on-dark); line-height: 1; margin-bottom: 5px;
+    }
+    .h-stat .l {
+      font-size: 11px; font-weight: 400;
+      letter-spacing: .09em; color: var(--muted-dark);
+    }
+    .hero-img {
+      position: relative; overflow: hidden;
+    }
+    .hero-img img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+    .hero-img::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to right, var(--ink) 0%, transparent 32%);
+    }
+
+    /* ── MARQUEE ─────────────────────────────────────── */
+    .ticker {
+      background: var(--accent); padding: 13px 0;
+      overflow: hidden; white-space: nowrap;
+    }
+    .ticker-inner {
+      display: inline-flex; gap: 0;
+      animation: tick 32s linear infinite;
+    }
+    .ticker-inner span {
+      font-size: 10.5px; font-weight: 600;
+      letter-spacing: .22em; text-transform: uppercase;
+      color: var(--ink); padding: 0 30px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .ticker-inner span::after {
+      content: ''; display: block;
+      width: 3px; height: 3px; border-radius: 50%;
+      background: var(--ink); opacity: .35;
+    }
+    @keyframes tick {
+      to { transform: translateX(-50%); }
+    }
+
+    /* ── SERVICES ────────────────────────────────────── */
+    .services {
+      background: var(--cream);
+      padding: 110px var(--gutter);
+    }
+    .sec-hd {
+      display: flex; align-items: flex-end;
+      justify-content: space-between; gap: 24px;
+      margin-bottom: 64px;
+    }
+    .sec-hd-note {
+      font-size: 14px; line-height: 1.75;
+      color: var(--muted-light); max-width: 300px;
+    }
+    .cards {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3px;
+    }
+    .card {
+      background: #fff; padding: 52px 44px;
+      position: relative; overflow: hidden;
+      transition: transform .3s, box-shadow .3s; cursor: default;
+    }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 24px 60px rgba(0,0,0,.09); z-index: 2; }
+    .card-no {
+      font-family: var(--serif); font-size: 108px;
+      font-weight: 300; line-height: 1;
+      color: var(--bd-light); position: absolute;
+      top: 16px; right: 24px; user-select: none;
+      transition: color .3s;
+    }
+    .card:hover .card-no { color: var(--accent-lt); }
+    .card-ico {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--accent-lt);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 26px; color: var(--accent);
+    }
+    .card-ico i { width: 17px; height: 17px; }
+    .card-name {
+      font-family: var(--serif); font-size: 28px;
+      font-weight: 400; color: var(--on-light);
+      margin-bottom: 13px; line-height: 1.2;
+    }
+    .card-desc {
+      font-size: 13.5px; line-height: 1.78;
+      color: var(--muted-light); margin-bottom: 30px;
+    }
+    .card-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; font-weight: 600;
+      letter-spacing: .16em; text-transform: uppercase; color: var(--accent);
+      transition: gap .2s;
+    }
+    .card-link:hover { gap: 14px; }
+    .card-link i { width: 13px; height: 13px; }
+
+    /* ── FEATURED ────────────────────────────────────── */
+    .featured { position: relative; height: 560px; overflow: hidden; }
+    .featured img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+    .feat-veil {
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, rgba(14,12,10,.9) 38%, rgba(14,12,10,.15) 100%);
+      display: flex; align-items: center;
+      padding: 0 var(--gutter);
+    }
+    .feat-body { max-width: 540px; }
+    .feat-body .eyebrow { margin-bottom: 18px; }
+    .feat-body h2 {
+      font-family: var(--serif);
+      font-size: clamp(40px, 4.8vw, 66px);
+      font-weight: 300; line-height: 1.08;
+      color: var(--on-dark); margin-bottom: 18px;
+    }
+    .feat-body h2 em { font-style: italic; }
+    .feat-body p {
+      font-size: 14.5px; line-height: 1.78;
+      color: var(--muted-dark); margin-bottom: 34px;
+    }
+
+    /* ── PROCESS ─────────────────────────────────────── */
+    .process { background: var(--cream); padding: 110px var(--gutter); }
+    .steps {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 48px; position: relative; margin-top: 64px;
+    }
+    .steps::before {
+      content: ''; position: absolute;
+      top: 27px;
+      left: calc(16.67% + 27px); right: calc(16.67% + 27px);
+      height: 1px; background: var(--bd-light);
+    }
+    .step-dot {
+      width: 54px; height: 54px; border-radius: 50%;
+      border: 1px solid var(--bd-light); background: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--serif); font-size: 22px;
+      font-weight: 300; color: var(--accent);
+      margin-bottom: 26px; position: relative; z-index: 1;
+    }
+    .step-title {
+      font-family: var(--serif); font-size: 24px;
+      font-weight: 400; color: var(--on-light); margin-bottom: 11px;
+    }
+    .step-desc { font-size: 13.5px; line-height: 1.78; color: var(--muted-light); }
+
+    /* ── ABOUT ───────────────────────────────────────── */
+    .about {
+      background: var(--ink);
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: 600px;
+    }
+    .about-img { position: relative; overflow: hidden; }
+    .about-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: grayscale(18%) contrast(108%);
+    }
+    .about-body {
+      padding: 96px clamp(32px,4vw,72px) 96px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .about-body .eyebrow { margin-bottom: 14px; }
+    .about-body h2 {
+      font-family: var(--serif);
+      font-size: clamp(36px, 3.6vw, 52px);
+      font-weight: 300; line-height: 1.1;
+      color: var(--on-dark); margin-bottom: 18px;
+    }
+    .about-body h2 em { font-style: italic; }
+    .about-body > p {
+      font-size: 14.5px; line-height: 1.82;
+      color: var(--muted-dark); margin-bottom: 42px;
+    }
+    .trust { display: flex; flex-direction: column; gap: 20px; }
+    .trust-row { display: flex; gap: 16px; align-items: flex-start; }
+    .trust-ico {
+      width: 36px; height: 36px; flex-shrink: 0; border-radius: 50%;
+      border: 1px solid var(--bd-dark);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--accent);
+    }
+    .trust-ico i { width: 15px; height: 15px; }
+    .trust-txt strong {
+      display: block; font-size: 13.5px; font-weight: 500;
+      color: var(--on-dark); margin-bottom: 3px;
+    }
+    .trust-txt span { font-size: 13px; color: var(--muted-dark); }
+
+    /* ── TESTIMONIALS ────────────────────────────────── */
+    .testi { background: var(--cream); padding: 110px var(--gutter); }
+    .testi-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 3px; margin-top: 64px;
+    }
+    .tcard { background: #fff; padding: 46px 38px; }
+    .stars { display: flex; gap: 3px; margin-bottom: 22px; color: var(--accent); }
+    .stars i { width: 13px; height: 13px; fill: var(--accent); stroke: var(--accent); }
+    .tquote {
+      font-family: var(--serif); font-size: 21px;
+      font-weight: 300; font-style: italic; line-height: 1.55;
+      color: var(--on-light); margin-bottom: 26px;
+    }
+    .tauthor {
+      display: flex; align-items: center; gap: 13px;
+      padding-top: 22px; border-top: 1px solid var(--bd-light);
+    }
+    .tavatar {
+      width: 42px; height: 42px; border-radius: 50%;
+      overflow: hidden; flex-shrink: 0;
+    }
+    .tavatar img { width: 100%; height: 100%; object-fit: cover; }
+    .tname { font-size: 13px; font-weight: 600; color: var(--on-light); }
+    .ttreat { font-size: 12px; color: var(--muted-light); }
+
+    /* ── FAQ ─────────────────────────────────────────── */
+    .faq { background: var(--ink); padding: 110px var(--gutter); }
+    .faq-list { max-width: 780px; margin-top: 60px; }
+    .faq-item { border-bottom: 1px solid var(--bd-dark); }
+    .fq {
+      width: 100%; display: flex; align-items: center;
+      justify-content: space-between; gap: 24px;
+      padding: 24px 0; background: none; border: none;
+      cursor: pointer; text-align: left; color: var(--on-dark);
+    }
+    .fq-txt {
+      font-family: var(--serif); font-size: 20px;
+      font-weight: 300; line-height: 1.3;
+    }
+    .fq-ico {
+      flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
+      border: 1px solid var(--bd-dark);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform .3s, background .3s, border-color .3s;
+      color: var(--muted-dark);
+    }
+    .fq-ico i { width: 13px; height: 13px; }
+    .faq-item.open .fq-ico {
+      transform: rotate(45deg);
+      background: var(--accent); border-color: var(--accent); color: #fff;
+    }
+    .fa { overflow: hidden; max-height: 0; transition: max-height .4s ease; }
+    .faq-item.open .fa { max-height: 400px; }
+    .fa p {
+      font-size: 14px; line-height: 1.82;
+      color: var(--muted-dark); padding-bottom: 24px;
+    }
+
+    /* ── CTA STRIP ───────────────────────────────────── */
+    .cta-strip {
+      background: var(--accent);
+      padding: 90px var(--gutter);
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 48px; flex-wrap: wrap;
+    }
+    .cta-txt h2 {
+      font-family: var(--serif);
+      font-size: clamp(36px, 4.2vw, 58px);
+      font-weight: 300; line-height: 1.1; color: var(--ink); margin-bottom: 10px;
+    }
+    .cta-txt p { font-size: 14.5px; color: rgba(14,12,10,.6); }
+    .cta-acts { display: flex; gap: 14px; flex-wrap: wrap; flex-shrink: 0; }
+
+    /* ── FOOTER ──────────────────────────────────────── */
+    footer {
+      background: var(--ink-mid);
+      border-top: 1px solid var(--bd-dark);
+      padding: 80px var(--gutter) 40px;
+    }
+    .ft-top {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px; padding-bottom: 56px;
+      border-bottom: 1px solid var(--bd-dark); margin-bottom: 36px;
+    }
+    .ft-brand p {
+      font-size: 13.5px; line-height: 1.78;
+      color: var(--muted-dark); margin-top: 14px; max-width: 270px;
+    }
+    .ft-col h4 {
+      font-size: 10.5px; font-weight: 600;
+      letter-spacing: .22em; text-transform: uppercase;
+      color: var(--on-dark); margin-bottom: 18px;
+    }
+    .ft-col ul { list-style: none; }
+    .ft-col li { margin-bottom: 11px; }
+    .ft-col a {
+      font-size: 13px; color: var(--muted-dark); transition: color .2s;
+    }
+    .ft-col a:hover { color: var(--on-dark); }
+    .ft-bot {
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 24px;
+    }
+    .ft-copy { font-size: 12px; color: var(--muted-dark); }
+    .ft-social { display: flex; gap: 12px; }
+    .ft-social a {
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 1px solid var(--bd-dark);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted-dark); transition: all .2s;
+    }
+    .ft-social a:hover { border-color: var(--accent); color: var(--accent); }
+    .ft-social i { width: 14px; height: 14px; }
+
+    /* ── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-img {
+        position: absolute; inset: 0; opacity: .25;
+      }
+      .hero-body { position: relative; z-index: 2; min-height: 100vh; }
+      .hero-img::after { display: none; }
+      .about { grid-template-columns: 1fr; }
+      .about-img { height: 420px; order: -1; }
+      .about-body { padding: 64px var(--gutter); }
+      .ft-top { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links, .nav-book { display: none; }
+      .hamburger { display: flex; }
+      .hero-stats { flex-wrap: wrap; gap: 20px; }
+      .h-stat { flex: none; width: calc(50% - 10px); }
+      .h-stat:not(:last-child) { border: none; margin: 0; padding: 0; }
+      .cards { grid-template-columns: 1fr; }
+      .card { padding: 40px 30px; }
+      .featured { height: 480px; }
+      .steps { grid-template-columns: 1fr; gap: 36px; }
+      .steps::before { display: none; }
+      .testi-grid { grid-template-columns: 1fr; }
+      .sec-hd { flex-direction: column; align-items: flex-start; }
+      .cta-strip { flex-direction: column; text-align: center; }
+      .cta-acts { justify-content: center; width: 100%; }
+      .ft-top { grid-template-columns: 1fr 1fr; gap: 28px; }
+      .ft-bot { flex-direction: column; text-align: center; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-actions, .cta-acts { flex-direction: column; }
+      .btn { width: 100%; justify-content: center; }
+      .ft-top { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a href="#" class="logo">
+    <span class="logo-main">GLOW</span>
+    <span class="logo-sub">Aesthetic Clinic</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <a href="#booking" class="nav-book">Book a Consultation</a>
+  <button class="hamburger" id="hbtn" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mob-menu" id="mobMenu">
+  <button class="mob-close" id="mclose" aria-label="Close menu">
+    <i data-lucide="x" style="width:26px;height:26px;"></i>
+  </button>
+  <a href="#services" onclick="closeMenu()">Services</a>
+  <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#process" onclick="closeMenu()">Process</a>
+  <a href="#faq" onclick="closeMenu()">FAQ</a>
+  <a href="#booking" class="mob-cta" onclick="closeMenu()">Book Now</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-body">
+    <p class="eyebrow">Advanced Aesthetic Medicine</p>
+    <h1 class="hero-h1">The Art of<br><em>Refined Beauty</em></h1>
+    <p class="hero-sub">Evidence-based skin treatments tailored to your unique needs — delivered with clinical precision and unhurried, genuine care.</p>
+    <div class="hero-actions">
+      <a href="#services" class="btn btn-accent">Explore Treatments <i data-lucide="arrow-right"></i></a>
+      <a href="#about" class="btn btn-ghost">Our Philosophy <i data-lucide="arrow-right"></i></a>
+    </div>
+    <div class="hero-stats">
+      <div class="h-stat">
+        <div class="n">14+</div>
+        <div class="l">Years of practice</div>
+      </div>
+      <div class="h-stat">
+        <div class="n">5,200</div>
+        <div class="l">Clients treated</div>
+      </div>
+      <div class="h-stat">
+        <div class="n">97%</div>
+        <div class="l">Satisfaction rate</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-img">
+    <img src="https://images.unsplash.com/photo-1581182800629-7d90925ad072?w=900&h=1100&fit=crop" alt="Woman with radiant skin" loading="eager" />
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-inner">
+    <span>Laser Resurfacing</span><span>Chemical Peels</span>
+    <span>Dermal Fillers</span><span>Skin Renewal</span>
+    <span>Facial Rejuvenation</span><span>Photon Therapy</span>
+    <span>Anti-Ageing Treatments</span><span>Bespoke Skincare</span>
+    <span>Laser Resurfacing</span><span>Chemical Peels</span>
+    <span>Dermal Fillers</span><span>Skin Renewal</span>
+    <span>Facial Rejuvenation</span><span>Photon Therapy</span>
+    <span>Anti-Ageing Treatments</span><span>Bespoke Skincare</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="sec-hd">
+    <div>
+      <p class="eyebrow" style="color:var(--accent);">Our Specialties</p>
+      <h2 class="display" style="color:var(--on-light);">Treatments That<br><em>Transform</em></h2>
+    </div>
+    <p class="sec-hd-note">Every treatment is individually designed, combining clinical science with aesthetic artistry.</p>
+  </div>
+  <div class="cards">
+    <div class="card">
+      <span class="card-no">01</span>
+      <div class="card-ico"><i data-lucide="zap"></i></div>
+      <h3 class="card-name">Laser Resurfacing</h3>
+      <p class="card-desc">Advanced fractional and ablative laser technologies targeting texture, tone, and signs of ageing — revealing smoother, more luminous skin with minimal downtime.</p>
+      <a href="#" class="card-link">Learn More <i data-lucide="arrow-right"></i></a>
+    </div>
+    <div class="card">
+      <span class="card-no">02</span>
+      <div class="card-ico"><i data-lucide="droplets"></i></div>
+      <h3 class="card-name">Chemical Peels</h3>
+      <p class="card-desc">Precisely calibrated acid formulations that exfoliate, clarify, and renew — from gentle superficial peels to deep resurfacing for more complex skin concerns.</p>
+      <a href="#" class="card-link">Learn More <i data-lucide="arrow-right"></i></a>
+    </div>
+    <div class="card">
+      <span class="card-no">03</span>
+      <div class="card-ico"><i data-lucide="sparkles"></i></div>
+      <h3 class="card-name">Facial Rejuvenation</h3>
+      <p class="card-desc">Comprehensive facial programmes addressing volume, contour, and vitality — using injectables, biostimulators, and bespoke topical protocols.</p>
+      <a href="#" class="card-link">Learn More <i data-lucide="arrow-right"></i></a>
+    </div>
+    <div class="card">
+      <span class="card-no">04</span>
+      <div class="card-ico"><i data-lucide="shield"></i></div>
+      <h3 class="card-name">Skin Restoration</h3>
+      <p class="card-desc">Medical-grade treatments for pigmentation, scarring, and sensitivity — evidence-based protocols that restore skin health at a cellular level, long-term.</p>
+      <a href="#" class="card-link">Learn More <i data-lucide="arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED -->
+<section class="featured">
+  <img src="https://images.unsplash.com/photo-1552693673-1bf958298935?w=1600&h=560&fit=crop" alt="Professional facial skincare treatment" loading="lazy" />
+  <div class="feat-veil">
+    <div class="feat-body">
+      <p class="eyebrow">Featured Treatment</p>
+      <h2>Laser Precision<br><em>Redefined</em></h2>
+      <p>Our state-of-the-art laser suite offers the full spectrum of light-based treatments — from pigmentation correction to deep skin renewal — delivered by clinicians with advanced laser certification.</p>
+      <a href="#" class="btn btn-accent">View Laser Treatments <i data-lucide="arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div>
+    <p class="eyebrow" style="color:var(--accent);">Your Journey</p>
+    <h2 class="display" style="color:var(--on-light);">How It Works</h2>
+  </div>
+  <div class="steps">
+    <div>
+      <div class="step-dot">1</div>
+      <h3 class="step-title">Consultation</h3>
+      <p class="step-desc">A private, unhurried session with a qualified clinician. We listen, examine, and build a complete picture of your skin health, concerns, and goals.</p>
+    </div>
+    <div>
+      <div class="step-dot">2</div>
+      <h3 class="step-title">Personalised Plan</h3>
+      <p class="step-desc">A bespoke treatment plan designed for you — combining the most effective modalities with a clear, transparent breakdown of expectations and timeline.</p>
+    </div>
+    <div>
+      <div class="step-dot">3</div>
+      <h3 class="step-title">Care &amp; Follow-Up</h3>
+      <p class="step-desc">Our commitment extends beyond each appointment. We monitor your progress, adjust protocols, and remain available throughout your skin journey.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-img">
+    <img src="https://images.unsplash.com/photo-1713085085470-fba013d67e65?w=700&h=700&fit=crop" alt="Clinician performing facial treatment" loading="lazy" />
+  </div>
+  <div class="about-body">
+    <p class="eyebrow">Our Commitment</p>
+    <h2>Science Meets<br><em>Artistry</em></h2>
+    <p>At Glow Clinic, exceptional skin care begins with genuine expertise and ends with results you can see. Our team combines advanced clinical training with a meticulous, unhurried approach to every procedure.</p>
+    <div class="trust">
+      <div class="trust-row">
+        <div class="trust-ico"><i data-lucide="award"></i></div>
+        <div class="trust-txt">
+          <strong>Board-Certified Practitioners</strong>
+          <span>All procedures performed by qualified, registered clinicians with specialist training.</span>
+        </div>
+      </div>
+      <div class="trust-row">
+        <div class="trust-ico"><i data-lucide="microscope"></i></div>
+        <div class="trust-txt">
+          <strong>Evidence-Based Protocols</strong>
+          <span>Every treatment grounded in current clinical literature and reviewed outcomes data.</span>
+        </div>
+      </div>
+      <div class="trust-row">
+        <div class="trust-ico"><i data-lucide="heart"></i></div>
+        <div class="trust-txt">
+          <strong>Patient-First Philosophy</strong>
+          <span>We only recommend treatments that genuinely serve your long-term skin health — nothing more.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi">
+  <div class="sec-hd">
+    <div>
+      <p class="eyebrow" style="color:var(--accent);">Client Voices</p>
+      <h2 class="display" style="color:var(--on-light);">What Our Clients Say</h2>
+    </div>
+  </div>
+  <div class="testi-grid">
+    <div class="tcard">
+      <div class="stars">
+        <i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i>
+        <i data-lucide="star"></i><i data-lucide="star"></i>
+      </div>
+      <p class="tquote">"I've never felt more confident in my own skin. The laser resurfacing was transformative — the results were everything I'd hoped for, and the care I received was exceptional."</p>
+      <div class="tauthor">
+        <div class="tavatar">
+          <img src="https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=84&h=84&fit=crop&crop=face" alt="" loading="lazy" />
+        </div>
+        <div>
+          <div class="tname">Sophie M.</div>
+          <div class="ttreat">Laser Resurfacing</div>
+        </div>
+      </div>
+    </div>
+    <div class="tcard">
+      <div class="stars">
+        <i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i>
+        <i data-lucide="star"></i><i data-lucide="star"></i>
+      </div>
+      <p class="tquote">"The team took the time to truly understand my skin. My consultation was thorough, honest, and completely without pressure. I trusted them completely — and the results speak for themselves."</p>
+      <div class="tauthor">
+        <div class="tavatar">
+          <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=84&h=84&fit=crop&crop=face" alt="" loading="lazy" />
+        </div>
+        <div>
+          <div class="tname">Rachel K.</div>
+          <div class="ttreat">Facial Rejuvenation</div>
+        </div>
+      </div>
+    </div>
+    <div class="tcard">
+      <div class="stars">
+        <i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i>
+        <i data-lucide="star"></i><i data-lucide="star"></i>
+      </div>
+      <p class="tquote">"My pigmentation had been a source of real anxiety for years. After a course of targeted treatments, it's completely resolved. Glow Clinic changed how I feel walking out the door every morning."</p>
+      <div class="tauthor">
+        <div class="tavatar">
+          <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=84&h=84&fit=crop&crop=face" alt="" loading="lazy" />
+        </div>
+        <div>
+          <div class="tname">Naomi T.</div>
+          <div class="ttreat">Skin Restoration</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div>
+    <p class="eyebrow">Questions</p>
+    <h2 class="display" style="color:var(--on-dark);">Common Questions</h2>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="fq">
+        <span class="fq-txt">What should I expect during my first consultation?</span>
+        <div class="fq-ico"><i data-lucide="plus"></i></div>
+      </button>
+      <div class="fa"><p>Your initial consultation is a private, one-to-one session with one of our qualified practitioners — typically 45–60 minutes. It includes a thorough skin analysis, a review of your medical history, and a candid conversation about your concerns and goals. There is no obligation to proceed with any treatment.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="fq">
+        <span class="fq-txt">How many sessions will I need?</span>
+        <div class="fq-ico"><i data-lucide="plus"></i></div>
+      </button>
+      <div class="fa"><p>This varies considerably depending on the treatment and your individual skin. Some results are visible after a single session; others — particularly for skin restoration or deeper resurfacing — require a course of treatments. Your clinician will provide a realistic, honest timeline during your consultation.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="fq">
+        <span class="fq-txt">Are the treatments painful?</span>
+        <div class="fq-ico"><i data-lucide="plus"></i></div>
+      </button>
+      <div class="fa"><p>Comfort levels vary by procedure. Many clients describe laser and peel treatments as a warm or tingling sensation rather than pain. Where appropriate, we use topical anaesthetics to ensure the experience is as comfortable as possible. Your clinician will always talk you through what to expect beforehand.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="fq">
+        <span class="fq-txt">What is the recovery time?</span>
+        <div class="fq-ico"><i data-lucide="plus"></i></div>
+      </button>
+      <div class="fa"><p>Recovery depends on treatment intensity. Light procedures like superficial peels or photon therapy involve no downtime. Deeper laser treatments may involve redness and peeling for 5–10 days. We provide detailed aftercare instructions and remain available throughout your recovery period.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="fq">
+        <span class="fq-txt">Do you offer financing options?</span>
+        <div class="fq-ico"><i data-lucide="plus"></i></div>
+      </button>
+      <div class="fa"><p>Yes. We offer flexible payment plans through our finance partner, making it possible to spread the cost of multi-session treatment courses. Full details are available during your consultation, with no pressure to commit on the day.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING CTA -->
+<section class="cta-strip" id="booking">
+  <div class="cta-txt">
+    <h2>Ready to Begin<br>Your Skin Journey?</h2>
+    <p>Consultations are complimentary. No pressure, no obligation.</p>
+  </div>
+  <div class="cta-acts">
+    <a href="tel:+442012345678" class="btn btn-dark"><i data-lucide="phone"></i> Call Us</a>
+    <a href="#" class="btn btn-outline-ink"><i data-lucide="calendar"></i> Book Online</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-top">
+    <div class="ft-brand">
+      <div class="logo">
+        <span class="logo-main">GLOW</span>
+        <span class="logo-sub">Aesthetic Clinic</span>
+      </div>
+      <p>A modern aesthetic clinic offering evidence-based skin treatments, laser procedures, and bespoke facial care — guided by genuine clinical expertise.</p>
+    </div>
+    <div class="ft-col">
+      <h4>Treatments</h4>
+      <ul>
+        <li><a href="#">Laser Resurfacing</a></li>
+        <li><a href="#">Chemical Peels</a></li>
+        <li><a href="#">Facial Rejuvenation</a></li>
+        <li><a href="#">Skin Restoration</a></li>
+        <li><a href="#">All Treatments</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h4>Clinic</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Our Team</a></li>
+        <li><a href="#">Patient Stories</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Careers</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+442012345678">+44 20 1234 5678</a></li>
+        <li><a href="mailto:hello@glowclinic.co.uk">hello@glowclinic.co.uk</a></li>
+        <li><a href="#">12 Harley Street, London</a></li>
+        <li><a href="#">Mon–Sat: 9am–6pm</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="ft-bot">
+    <p class="ft-copy">2024 Glow Clinic. All rights reserved.</p>
+    <div class="ft-social">
+      <a href="#" aria-label="Instagram"><i data-lucide="instagram"></i></a>
+      <a href="#" aria-label="Facebook"><i data-lucide="facebook"></i></a>
+      <a href="#" aria-label="Pinterest"><i data-lucide="pinterest"></i></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  lucide.createIcons();
+
+  // Sticky nav
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('stuck', window.scrollY > 60);
+  }, { passive: true });
+
+  // Mobile menu
+  const mobMenu = document.getElementById('mobMenu');
+  document.getElementById('hbtn').addEventListener('click', () => {
+    mobMenu.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  });
+  function closeMenu() {
+    mobMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('mclose').addEventListener('click', closeMenu);
+
+  // FAQ accordion
+  document.querySelectorAll('.fq').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+</script>
+</body>
+</html>

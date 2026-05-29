@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glow Clinic — Aesthetic &amp; Skin Care</title>
+  <script src="https://unpkg.com/lucide@0.460.0"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #F5F0EA;
+      --bg-alt:      #EDEAE3;
+      --bg-dark:     #1A1714;
+      --bg-darker:   #120F0D;
+      --accent:      #B87355;
+      --accent-lt:   #D49A73;
+      --text:        #201C1A;
+      --text-mid:    #5A5450;
+      --text-lt:     #8A827A;
+      --border:      #DDD8CF;
+      --white:       #FDFCF9;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 56px;
+      height: 70px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 21px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+      text-decoration: none;
+      transition: color .2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-links .nav-book {
+      background: var(--text);
+      color: var(--bg);
+      padding: 10px 22px;
+      letter-spacing: 0.07em;
+      transition: background .25s;
+    }
+
+    .nav-links .nav-book:hover { background: var(--accent); color: #fff; }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text);
+      padding: 4px;
+    }
+
+    /* mobile nav drawer */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      inset: 70px 0 0 0;
+      background: var(--bg);
+      z-index: 190;
+      flex-direction: column;
+      padding: 32px 24px;
+      gap: 8px;
+      border-top: 1px solid var(--border);
+    }
+
+    .mobile-nav.open { display: flex; }
+
+    .mobile-nav a {
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      color: var(--text-mid);
+      text-decoration: none;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .mobile-nav a:last-child { border-bottom: none; }
+
+    /* ── HERO ── */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 100vh;
+      padding-top: 70px;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 64px;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 28px;
+    }
+
+    .eyebrow::before {
+      content: '';
+      display: block;
+      width: 36px;
+      height: 1px;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .hero-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(54px, 6vw, 90px);
+      font-weight: 300;
+      line-height: 1.0;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: 28px;
+    }
+
+    .hero-heading em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--text-mid);
+      max-width: 400px;
+      margin-bottom: 48px;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+
+    .btn-dark {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--text);
+      color: var(--bg);
+      padding: 15px 34px;
+      font-size: 12px;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background .25s;
+    }
+
+    .btn-dark:hover { background: var(--accent); }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 3px;
+      transition: color .2s, border-color .2s;
+    }
+
+    .btn-ghost:hover { color: var(--text); border-color: var(--text); }
+
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      margin-top: 60px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+
+    .hero-stat strong {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 34px;
+      font-weight: 400;
+      color: var(--text);
+      display: block;
+      line-height: 1;
+    }
+
+    .hero-stat span {
+      font-size: 11px;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--text-lt);
+      margin-top: 5px;
+      display: block;
+    }
+
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-right img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-pullout {
+      position: absolute;
+      bottom: 44px;
+      left: 28px;
+      background: rgba(245,240,234,.93);
+      backdrop-filter: blur(10px);
+      padding: 20px 24px;
+      max-width: 255px;
+      border-left: 2px solid var(--accent);
+    }
+
+    .hero-pullout p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    .hero-pullout cite {
+      display: block;
+      margin-top: 10px;
+      font-size: 11px;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-style: normal;
+    }
+
+    /* ── TICKER ── */
+    .ticker {
+      background: var(--bg-dark);
+      padding: 13px 0;
+      overflow: hidden;
+    }
+
+    .ticker-track {
+      display: flex;
+      width: max-content;
+      animation: tick 32s linear infinite;
+    }
+
+    @keyframes tick {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    .ticker-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 0 36px;
+      white-space: nowrap;
+    }
+
+    .ticker-item span {
+      font-size: 11px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.45);
+    }
+
+    .ticker-item i {
+      color: var(--accent);
+      width: 13px;
+      height: 13px;
+      flex-shrink: 0;
+    }
+
+    /* ── SERVICES ── */
+    .services {
+      padding: 112px 64px;
+    }
+
+    .sec-hdr {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 64px;
+      gap: 20px;
+    }
+
+    .sec-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+
+    .sec-label::before {
+      content: '';
+      display: block;
+      width: 30px;
+      height: 1px;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .sec-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 4vw, 56px);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--text);
+    }
+
+    .sec-title em { font-style: italic; }
+
+    .sec-link {
+      font-size: 12px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 2px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: color .2s, border-color .2s;
+    }
+
+    .sec-link:hover { color: var(--text); border-color: var(--text); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .svc-card {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      cursor: pointer;
+    }
+
+    .svc-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .65s ease;
+    }
+
+    .svc-card:hover img { transform: scale(1.05); }
+
+    .svc-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(18,15,13,.86) 0%, rgba(18,15,13,.18) 55%, transparent 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 32px;
+    }
+
+    .svc-icon {
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(255,255,255,.22);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .svc-icon i { color: #fff; width: 17px; height: 17px; }
+
+    .svc-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 12px;
+      color: var(--accent-lt);
+      letter-spacing: 0.1em;
+      margin-bottom: 6px;
+    }
+
+    .svc-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: 10px;
+      line-height: 1.1;
+    }
+
+    .svc-desc {
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(255,255,255,.6);
+      line-height: 1.6;
+    }
+
+    .svc-arrow {
+      position: absolute;
+      top: 26px;
+      right: 26px;
+      width: 34px;
+      height: 34px;
+      border: 1px solid rgba(255,255,255,.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity .3s;
+    }
+
+    .svc-card:hover .svc-arrow { opacity: 1; }
+    .svc-arrow i { color: #fff; width: 15px; height: 15px; }
+
+    /* ── ABOUT ── */
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: var(--bg-alt);
+    }
+
+    .about-img {
+      position: relative;
+      min-height: 600px;
+      overflow: hidden;
+    }
+
+    .about-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .about-badge {
+      position: absolute;
+      top: 44px;
+      right: 0;
+      background: var(--bg-dark);
+      color: #fff;
+      padding: 22px 28px;
+      min-width: 180px;
+    }
+
+    .about-badge strong {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 42px;
+      font-weight: 300;
+      color: var(--accent-lt);
+      display: block;
+      line-height: 1;
+    }
+
+    .about-badge span {
+      font-size: 11px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.45);
+      line-height: 1.5;
+      margin-top: 4px;
+      display: block;
+    }
+
+    .about-body {
+      padding: 80px 72px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .about-body p {
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--text-mid);
+      margin-bottom: 22px;
+      max-width: 480px;
+    }
+
+    .about-body p strong { color: var(--text); font-weight: 400; }
+
+    .credentials {
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+      margin-top: 36px;
+    }
+
+    .cred {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text-mid);
+    }
+
+    .cred i { color: var(--accent); width: 15px; height: 15px; flex-shrink: 0; }
+
+    /* ── STATS ── */
+    .stats {
+      background: var(--bg-dark);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .stat {
+      padding: 60px 48px;
+      border-right: 1px solid rgba(255,255,255,.06);
+    }
+
+    .stat:last-child { border-right: none; }
+
+    .stat-n {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 62px;
+      font-weight: 300;
+      color: #fff;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .stat-n sup { font-size: 28px; vertical-align: super; }
+
+    .stat-l {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.35);
+    }
+
+    /* ── PROCESS ── */
+    .process {
+      padding: 112px 64px;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 48px;
+      margin-top: 64px;
+    }
+
+    .step {
+      position: relative;
+    }
+
+    .step::after {
+      content: '';
+      position: absolute;
+      top: 20px;
+      right: calc(-24px + 1px);
+      width: 48px;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .step:last-child::after { display: none; }
+
+    .step-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 12px;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      margin-bottom: 18px;
+    }
+
+    .step-ico {
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+
+    .step-ico i { color: var(--accent); width: 17px; height: 17px; }
+
+    .step h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .step p {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text-mid);
+      line-height: 1.75;
+    }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials {
+      background: var(--bg-alt);
+      padding: 112px 64px;
+    }
+
+    .t-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 64px;
+    }
+
+    .t-card {
+      background: var(--white);
+      padding: 48px;
+      position: relative;
+    }
+
+    .t-mark {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 88px;
+      font-weight: 300;
+      color: var(--border);
+      position: absolute;
+      top: 14px;
+      left: 44px;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .t-stars {
+      display: flex;
+      gap: 3px;
+      position: absolute;
+      top: 44px;
+      right: 44px;
+    }
+
+    .t-stars i { color: var(--accent); width: 13px; height: 13px; }
+
+    .t-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.75;
+      color: var(--text);
+      margin-bottom: 32px;
+      margin-top: 16px;
+    }
+
+    .t-author {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .t-avatar {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .t-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+    .t-meta strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .t-meta span {
+      font-size: 12px;
+      color: var(--text-lt);
+      letter-spacing: 0.03em;
+    }
+
+    /* ── CTA / BOOKING ── */
+    .booking {
+      background: var(--bg-dark);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .booking-left {
+      padding: 96px 72px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .booking-left .sec-label { color: var(--accent-lt); }
+    .booking-left .sec-label::before { background: var(--accent-lt); }
+
+    .booking-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(40px, 4vw, 62px);
+      font-weight: 300;
+      line-height: 1.1;
+      color: #fff;
+      margin: 0 0 20px;
+    }
+
+    .booking-heading em { font-style: italic; color: var(--accent-lt); }
+
+    .booking-text {
+      font-size: 15px;
+      font-weight: 300;
+      color: rgba(255,255,255,.5);
+      line-height: 1.75;
+      max-width: 400px;
+      margin-bottom: 48px;
+    }
+
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      font-size: 14px;
+      font-weight: 300;
+      color: rgba(255,255,255,.6);
+    }
+
+    .contact-row i { color: var(--accent); width: 15px; height: 15px; flex-shrink: 0; }
+
+    .booking-right {
+      padding: 80px 72px;
+      border-left: 1px solid rgba(255,255,255,.06);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .form-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: 32px;
+    }
+
+    .f-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .f-group {
+      margin-bottom: 18px;
+    }
+
+    .f-group label {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.35);
+      margin-bottom: 8px;
+    }
+
+    .f-group input,
+    .f-group select,
+    .f-group textarea {
+      width: 100%;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.1);
+      color: #fff;
+      padding: 13px 15px;
+      font-size: 14px;
+      font-weight: 300;
+      font-family: 'DM Sans', sans-serif;
+      outline: none;
+      transition: border-color .2s;
+      resize: none;
+    }
+
+    .f-group input::placeholder,
+    .f-group textarea::placeholder { color: rgba(255,255,255,.25); }
+
+    .f-group input:focus,
+    .f-group select:focus,
+    .f-group textarea:focus { border-color: var(--accent); }
+
+    .f-group select option { background: #1a1714; }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 15px 32px;
+      font-size: 12px;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      transition: background .25s;
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .btn-submit:hover { background: var(--accent-lt); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg-darker);
+      padding: 80px 64px 40px;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 56px;
+      padding-bottom: 56px;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+
+    .footer-brand .logo {
+      display: block;
+      font-size: 19px;
+      margin-bottom: 18px;
+    }
+
+    .footer-brand p {
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(255,255,255,.35);
+      line-height: 1.75;
+      max-width: 280px;
+    }
+
+    .socials {
+      display: flex;
+      gap: 10px;
+      margin-top: 26px;
+    }
+
+    .social {
+      width: 35px;
+      height: 35px;
+      border: 1px solid rgba(255,255,255,.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: border-color .2s, background .2s;
+    }
+
+    .social:hover { border-color: var(--accent); background: rgba(184,115,85,.1); }
+    .social i { color: rgba(255,255,255,.45); width: 14px; height: 14px; }
+
+    .f-col h4 {
+      font-size: 10px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.4);
+      margin-bottom: 18px;
+    }
+
+    .f-col ul { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+
+    .f-col ul a {
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(255,255,255,.3);
+      text-decoration: none;
+      transition: color .2s;
+    }
+
+    .f-col ul a:hover { color: rgba(255,255,255,.65); }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 28px;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer-bottom p,
+    .footer-bottom a {
+      font-size: 12px;
+      color: rgba(255,255,255,.2);
+      text-decoration: none;
+    }
+
+    .footer-bottom a:hover { color: rgba(255,255,255,.45); }
+    .f-legal { display: flex; gap: 20px; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .nav-toggle { display: block; }
+
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { height: 56vw; min-height: 300px; order: -1; }
+      .hero-left { padding: 48px 24px 64px; }
+      .hero-stats { flex-wrap: wrap; gap: 28px; }
+
+      .services { padding: 72px 24px; }
+      .sec-hdr { flex-direction: column; align-items: flex-start; }
+      .services-grid { grid-template-columns: 1fr; }
+      .svc-card { aspect-ratio: 4/3; }
+
+      .about { grid-template-columns: 1fr; }
+      .about-img { height: 60vw; min-height: 280px; }
+      .about-badge { top: 24px; }
+      .about-body { padding: 48px 24px; }
+
+      .stats { grid-template-columns: 1fr 1fr; }
+      .stat { padding: 40px 28px; border-bottom: 1px solid rgba(255,255,255,.06); }
+      .stat:nth-child(2) { border-right: none; }
+      .stat:nth-child(3) { border-bottom: none; }
+      .stat:nth-child(4) { border-right: none; border-bottom: none; }
+
+      .process { padding: 72px 24px; }
+      .steps { grid-template-columns: 1fr; gap: 40px; }
+      .step::after { display: none; }
+
+      .testimonials { padding: 72px 24px; }
+      .t-grid { grid-template-columns: 1fr; }
+
+      .booking { grid-template-columns: 1fr; }
+      .booking-left { padding: 64px 24px 48px; }
+      .booking-right { padding: 48px 24px 64px; border-left: none; border-top: 1px solid rgba(255,255,255,.06); }
+      .f-row { grid-template-columns: 1fr; }
+
+      footer { padding: 64px 24px 32px; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+    }
+
+    @media (max-width: 520px) {
+      .stats { grid-template-columns: 1fr; }
+      .stat { border-right: none !important; }
+      .footer-top { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="logo">Glow <span>Clinic</span></a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#process">Our Process</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#booking" class="nav-book">Book Consultation</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Toggle menu" onclick="document.querySelector('.mobile-nav').classList.toggle('open')">
+      <i data-lucide="menu"></i>
+    </button>
+  </nav>
+
+  <nav class="mobile-nav">
+    <a href="#services" onclick="this.parentNode.classList.remove('open')">Services</a>
+    <a href="#about" onclick="this.parentNode.classList.remove('open')">About</a>
+    <a href="#process" onclick="this.parentNode.classList.remove('open')">Our Process</a>
+    <a href="#reviews" onclick="this.parentNode.classList.remove('open')">Reviews</a>
+    <a href="#booking" onclick="this.parentNode.classList.remove('open')">Book Consultation</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="eyebrow">Premium Aesthetic Clinic</div>
+      <h1 class="hero-heading">
+        Reveal Your<br><em>Natural</em><br>Radiance
+      </h1>
+      <p class="hero-sub">
+        Advanced skin treatments and aesthetic procedures designed to enhance your natural beauty — delivered with precision, care, and clinical expertise.
+      </p>
+      <div class="hero-actions">
+        <a href="#booking" class="btn-dark">
+          Book a Consultation
+          <i data-lucide="arrow-right"></i>
+        </a>
+        <a href="#services" class="btn-ghost">
+          Explore Services
+          <i data-lucide="chevron-down"></i>
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <strong>12<sup style="font-size:18px;vertical-align:super">+</sup></strong>
+          <span>Years of Experience</span>
+        </div>
+        <div class="hero-stat">
+          <strong>4,800</strong>
+          <span>Treatments Performed</span>
+        </div>
+        <div class="hero-stat">
+          <strong>98%</strong>
+          <span>Client Satisfaction</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <img
+        src="https://images.unsplash.com/photo-1604073788733-f01b27fe34cd?w=900&h=1000&fit=crop"
+        alt="Woman with radiant, healthy skin"
+      >
+      <div class="hero-pullout">
+        <p>"The results exceeded everything I hoped for — completely natural-looking."</p>
+        <cite>— Sarah M., Verified Client</cite>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker">
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="sec-hdr">
+      <div>
+        <div class="sec-label">What We Offer</div>
+        <h2 class="sec-title">Our <em>Signature</em><br>Treatments</h2>
+      </div>
+      <a href="#booking" class="sec-link">View All Services</a>
+    </div>
+    <div class="services-grid">
+      <div class="svc-card">
+        <img
+          src="https://images.unsplash.com/photo-1552693673-1bf958298935?w=600&h=800&fit=crop"
+          alt="Facial skin treatment"
+          loading="lazy"
+        >
+        <div class="svc-overlay">
+          <div class="svc-icon"><i data-lucide="sparkles"></i></div>
+          <div class="svc-num">01</div>
+          <div class="svc-name">Skin Treatments</div>
+          <p class="svc-desc">Chemical peels, microneedling, and advanced hydration therapies for luminous, even-toned skin.</p>
+        </div>
+        <div class="svc-arrow"><i data-lucide="arrow-up-right"></i></div>
+      </div>
+      <div class="svc-card">
+        <img
+          src="https://images.unsplash.com/photo-1713085085470-fba013d67e65?w=600&h=800&fit=crop"
+          alt="Laser skin procedure"
+          loading="lazy"
+        >
+        <div class="svc-overlay">
+          <div class="svc-icon"><i data-lucide="zap"></i></div>
+          <div class="svc-num">02</div>
+          <div class="svc-name">Laser Procedures</div>
+          <p class="svc-desc">Precision laser resurfacing, pigmentation correction, and permanent hair reduction.</p>
+        </div>
+        <div class="svc-arrow"><i data-lucide="arrow-up-right"></i></div>
+      </div>
+      <div class="svc-card">
+        <img
+          src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=600&h=800&fit=crop"
+          alt="Facial enhancement treatment"
+          loading="lazy"
+        >
+        <div class="svc-overlay">
+          <div class="svc-icon"><i data-lucide="gem"></i></div>
+          <div class="svc-num">03</div>
+          <div class="svc-name">Facial Enhancements</div>
+          <p class="svc-desc">Dermal fillers, anti-wrinkle injections, and contouring for refined, balanced features.</p>
+        </div>
+        <div class="svc-arrow"><i data-lucide="arrow-up-right"></i></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about-img">
+      <img
+        src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=800&h=900&fit=crop"
+        alt="Glow Clinic practitioner"
+        loading="lazy"
+      >
+      <div class="about-badge">
+        <strong>15<sup style="font-size:20px;vertical-align:super">+</sup></strong>
+        <span>Years of clinical expertise in aesthetic medicine</span>
+      </div>
+    </div>
+    <div class="about-body">
+      <div class="sec-label">About Glow Clinic</div>
+      <h2 class="sec-title" style="margin-bottom:32px">Where <em>Science</em><br>Meets Artistry</h2>
+      <p>
+        At Glow Clinic, great aesthetic care begins with understanding the individual. <strong>Every treatment is tailored</strong> to your unique anatomy, goals, and lifestyle — not a standardised template.
+      </p>
+      <p>
+        Our practitioners combine clinical precision with an artistic eye, ensuring results that are not only effective but beautifully natural. We work exclusively with advanced, evidence-backed technologies.
+      </p>
+      <div class="credentials">
+        <div class="cred">
+          <i data-lucide="shield-check"></i>
+          <span>Board-certified aesthetic practitioners</span>
+        </div>
+        <div class="cred">
+          <i data-lucide="award"></i>
+          <span>Internationally accredited clinic</span>
+        </div>
+        <div class="cred">
+          <i data-lucide="microscope"></i>
+          <span>Medical-grade equipment and protocols</span>
+        </div>
+        <div class="cred">
+          <i data-lucide="heart"></i>
+          <span>Personalised care from consultation to recovery</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-n">4,800<sup>+</sup></div>
+      <div class="stat-l">Successful Treatments</div>
+    </div>
+    <div class="stat">
+      <div class="stat-n">98%</div>
+      <div class="stat-l">Client Satisfaction Rate</div>
+    </div>
+    <div class="stat">
+      <div class="stat-n">12</div>
+      <div class="stat-l">Specialist Practitioners</div>
+    </div>
+    <div class="stat">
+      <div class="stat-n">15<sup>+</sup></div>
+      <div class="stat-l">Years of Excellence</div>
+    </div>
+  </div>
+
+  <!-- PROCESS -->
+  <section class="process" id="process">
+    <div class="sec-hdr">
+      <div>
+        <div class="sec-label">How It Works</div>
+        <h2 class="sec-title">Your Journey<br>to <em>Confidence</em></h2>
+      </div>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-ico"><i data-lucide="message-circle"></i></div>
+        <h3>Consultation</h3>
+        <p>A thorough one-on-one session with your practitioner to understand your goals, assess your skin, and design a fully tailored treatment plan.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-ico"><i data-lucide="clipboard-list"></i></div>
+        <h3>Treatment Plan</h3>
+        <p>A comprehensive, personalised roadmap — outlining procedures, expected outcomes, and the timeline for your transformation.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-ico"><i data-lucide="activity"></i></div>
+        <h3>Treatment</h3>
+        <p>Precision procedures performed by expert practitioners using the latest clinically proven technologies in our state-of-the-art facility.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-ico"><i data-lucide="refresh-cw"></i></div>
+        <h3>Aftercare</h3>
+        <p>Dedicated post-treatment support, follow-up appointments, and a personalised skincare routine to protect and prolong your results.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials" id="reviews">
+    <div class="sec-hdr">
+      <div>
+        <div class="sec-label">Client Stories</div>
+        <h2 class="sec-title">Words from Our<br><em>Clients</em></h2>
+      </div>
+    </div>
+    <div class="t-grid">
+      <div class="t-card">
+        <div class="t-mark">"</div>
+        <div class="t-stars">
+          <i data-lucide="star"></i>
+          <i data-lucide="star"></i>
+          <i data-lucide="star"></i>
+          <i data-lucide="star"></i>
+          <i data-lucide="star"></i>
+        </div>
+        <p class="t-quote">
+          I had tried countless skincare products over the years with minimal results. After just three sessions at Glow Clinic, the difference in my skin texture and clarity was remarkable. The team made me feel completely at ease throughout.
+        </p>
+        <div class="t-author">
+          <div class="t-avatar">
+            <img
+              src="https://images.unsplash.com/photo-1581182800629-7d90925ad072?w=96&h=96&fit=crop&crop=face"
+              alt="Emma Thornton"
+              loading="lazy"
+            >
+          </div>
+          <div class="t-meta">
+            <strong>Emma Thornton</strong>
+            <span>Laser Resurfacing Client</span>
+          </div>
+        </div>
+      </div>
+      <div class="t-card">
+        <div class="t-mark">"</div>
+        <div class="t-stars">
+          <i data-lucide="star"></i>
+          <i data-lucide="star"></i>
+          <i data-lucide="star"></i>
+          <i data-lucide="star"></i>
+          <i data-lucide="star"></i>
+        </div>
+        <p class="t-quote">
+          The consultation process was what won me over — thorough, honest, and never pushy. My practitioner explained every step carefully, and the results have been genuinely life-changing. I finally feel like myself again.
+        </p>
+        <div class="t-author">
+          <div class="t-avatar">
+            <img
+              src="https://images.unsplash.com/photo-1509967419530-da38b4704bc6?w=96&h=96&fit=crop&crop=face"
+              alt="Claire Nakamura"
+              loading="lazy"
+            >
+          </div>
+          <div class="t-meta">
+            <strong>Claire Nakamura</strong>
+            <span>Facial Enhancement Client</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOKING -->
+  <section class="booking" id="booking">
+    <div class="booking-left">
+      <div class="sec-label">Get Started</div>
+      <h2 class="booking-heading">Begin Your<br><em>Skin Journey</em><br>Today</h2>
+      <p class="booking-text">
+        Your first consultation is complimentary. Speak with one of our practitioners and discover what is truly possible for your skin.
+      </p>
+      <div class="contact-list">
+        <div class="contact-row">
+          <i data-lucide="phone"></i>
+          <span>+1 (555) 400-GLOW</span>
+        </div>
+        <div class="contact-row">
+          <i data-lucide="mail"></i>
+          <span>hello@glowclinic.com</span>
+        </div>
+        <div class="contact-row">
+          <i data-lucide="map-pin"></i>
+          <span>142 Harley Street, London W1G 7LF</span>
+        </div>
+        <div class="contact-row">
+          <i data-lucide="clock"></i>
+          <span>Mon–Sat: 9:00 am – 7:00 pm</span>
+        </div>
+      </div>
+    </div>
+    <div class="booking-right">
+      <h3 class="form-heading">Request a Consultation</h3>
+      <div class="f-row">
+        <div class="f-group">
+          <label>First Name</label>
+          <input type="text" placeholder="Emma">
+        </div>
+        <div class="f-group">
+          <label>Last Name</label>
+          <input type="text" placeholder="Thornton">
+        </div>
+      </div>
+      <div class="f-group">
+        <label>Email Address</label>
+        <input type="email" placeholder="emma@example.com">
+      </div>
+      <div class="f-group">
+        <label>Treatment of Interest</label>
+        <select>
+          <option value="">Select a treatment...</option>
+          <option>Skin Treatments</option>
+          <option>Laser Procedures</option>
+          <option>Facial Enhancements</option>
+          <option>Not sure yet — need guidance</option>
+        </select>
+      </div>
+      <div class="f-group">
+        <label>Message (optional)</label>
+        <textarea rows="3" placeholder="Tell us a little about your goals..."></textarea>
+      </div>
+      <button class="btn-submit" type="button">
+        Request Free Consultation
+        <i data-lucide="arrow-right"></i>
+      </button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#" class="logo">Glow <span>Clinic</span></a>
+        <p>A premier aesthetic and skin care clinic dedicated to enhancing natural beauty through precision, science, and personalised care.</p>
+        <div class="socials">
+          <div class="social"><i data-lucide="instagram"></i></div>
+          <div class="social"><i data-lucide="facebook"></i></div>
+          <div class="social"><i data-lucide="twitter"></i></div>
+          <div class="social"><i data-lucide="youtube"></i></div>
+        </div>
+      </div>
+      <div class="f-col">
+        <h4>Treatments</h4>
+        <ul>
+          <li><a href="#">Skin Treatments</a></li>
+          <li><a href="#">Laser Procedures</a></li>
+          <li><a href="#">Facial Enhancements</a></li>
+          <li><a href="#">Body Contouring</a></li>
+          <li><a href="#">Consultation</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h4>Clinic</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Our Team</a></li>
+          <li><a href="#">Accreditations</a></li>
+          <li><a href="#">Client Stories</a></li>
+          <li><a href="#">Journal</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Book Appointment</a></li>
+          <li><a href="#">Aftercare Advice</a></li>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Glow Clinic. All rights reserved.</p>
+      <div class="f-legal">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Cookies</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+
+    // Build ticker
+    const TICKER_ITEMS = [
+      { icon: 'sparkles',  text: 'Skin Treatments' },
+      { icon: 'zap',       text: 'Laser Procedures' },
+      { icon: 'gem',       text: 'Facial Enhancements' },
+      { icon: 'droplets',  text: 'Chemical Peels' },
+      { icon: 'sun',       text: 'Pigmentation Correction' },
+      { icon: 'activity',  text: 'Microneedling' },
+      { icon: 'star',      text: 'Dermal Fillers' },
+      { icon: 'award',     text: 'Board-Certified Practitioners' },
+    ];
+
+    const track = document.getElementById('tickerTrack');
+    [...TICKER_ITEMS, ...TICKER_ITEMS].forEach(function(item) {
+      var el = document.createElement('div');
+      el.className = 'ticker-item';
+      el.innerHTML = '<i data-lucide="' + item.icon + '"></i><span>' + item.text + '</span>';
+      track.appendChild(el);
+    });
+
+    lucide.createIcons();
+  </script>
+</body>
+</html>

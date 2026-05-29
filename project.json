@@ -1,0 +1,23 @@
+{
+  "slug": "glow-clinic",
+  "brand_dna": "Glow Clinic is a beauty and aesthetic clinic. The design should feel clean, trustworthy, and professional. Focus on showcasing services such as skin treatments, laser procedures, and facial enhancements. The overall mood is refined and reassuring — clients should feel confident in the quality of care.",
+  "variant_count": 2,
+  "client_id": null,
+  "tags": [],
+  "generated_at": "2026-05-29T00:53:49Z",
+  "prompt_template": "variant.md",
+  "actions": [
+    {
+      "type": "generate",
+      "at": "2026-05-29T01:03:50Z",
+      "variants": {
+        "v1": {
+          "size_bytes": 39270
+        },
+        "v2": {
+          "size_bytes": 38576
+        }
+      }
+    }
+  ]
+}
